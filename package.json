@@ -18,5 +18,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "http://drgao.xyz/Satellite_Orbit"
+  "homepage": "http://drgao.xyz/Satellite_Orbit/build"
 }
