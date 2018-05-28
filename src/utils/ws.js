@@ -22,10 +22,6 @@ export default class WsSatellite {
       );
     };
 
-    ws.onmessage = data => {
-      console.log(data.data);
-    };
-
     ws.onerror = err => {
       console.log(err);
     };
@@ -38,5 +34,10 @@ export default class WsSatellite {
   close(taskType, satelliteId) {
     const ws = this.ws;
     ws.close();
+  }
+
+  getRes(func) {
+    const ws = this.ws;
+    ws.onmessage = data => func(JSON.parse(data.data));
   }
 }

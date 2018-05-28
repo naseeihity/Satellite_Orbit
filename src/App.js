@@ -5,38 +5,50 @@ import 'echarts-gl';
 import { postStation, postSatellite } from './utils/fetch';
 import WsSatellite from './utils/ws';
 import { CMD } from './utils/api';
+import xyz2blh from './utils/transfer';
 
 import baseImg from './asset/earth.jpg';
 import starImg from './asset/starfield.jpg';
 import nightImg from './asset/night.jpg';
-import { stationSvg } from './utils/svg.js';
+import { stationSvg, satellSvg } from './utils/svg.js';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
 
+    this.series = [];
     this.echart = React.createRef();
 
     this.satellite = [];
 
     this.getOption = this.getOption.bind(this);
+    this.setOption = this.setOption.bind(this);
     this.getStations = this.getStations.bind(this);
     this.getSatellite = this.getSatellite.bind(this);
     this.subScribe = this.subScribe.bind(this);
+    this.getMsg = this.getMsg.bind(this);
   }
 
   componentDidMount() {
     this.getStations();
     this.getSatellite();
+    const blh = xyz2blh(-2148778.283, 4426643.49, 4044675.194);
+    console.log(blh.b, blh.l, blh.h);
+  }
+
+  setOption(series) {
+    const echarts_instance = this.echart.current.getEchartsInstance();
+    echarts_instance.setOption({ series: series });
   }
 
   getStations() {
     const echarts_instance = this.echart.current.getEchartsInstance();
+    const setOption = this.setOption;
 
     let stations = [];
     let stationsPoints = [];
-    let series = [];
+    let series = this.series;
 
     // 获取地面站数据
     postStation().then(data => {
@@ -69,9 +81,7 @@ class App extends Component {
         },
         data: stationsPoints
       });
-
-      echarts_instance.setOption({ series: series });
-
+      setOption(series);
       echarts_instance.hideLoading();
     });
   }
@@ -82,14 +92,41 @@ class App extends Component {
       this.satellite = data.satellites;
       console.log(this.satellite);
       this.satellite.forEach(item => {
-        subScribe(item.id);
+        item.id == 2 && subScribe(item.id);
       });
     });
   }
 
   subScribe(id) {
+    const getMsg = this.getMsg;
     const ws = new WsSatellite();
     ws.open(CMD.ADD, id);
+    ws.getRes(getMsg);
+  }
+
+  getMsg(msg) {
+    let series = [].concat(this.series);
+    if (msg.data.postions) {
+      const xyz = msg.data.postions[0].r;
+      const point = xyz2blh(xyz[0], xyz[1], xyz[2]);
+      point[2] = 1;
+      console.log(point);
+
+      series.push({
+        type: 'scatter3D',
+        coordinateSystem: 'globe',
+        blendMode: 'source-over',
+        symbol: 'path://' + satellSvg,
+        symbolSize: 25,
+        itemStyle: {
+          color: '#8579AF',
+          opicity: 1,
+          borderColor: '#ECECEE'
+        },
+        data: [point]
+      });
+      this.setOption(series);
+    }
   }
 
   getOption() {
@@ -100,9 +137,11 @@ class App extends Component {
           distance: 250,
           maxDistance: 450,
           minDistance: 100,
-          autoRotate: false,
-          targetCoord: [116.46, 39.92]
+          autoRotate: false
+          // targetCoord: [116.46, 39.92]
         },
+        globeRadius: 100,
+        globeOuterRadius: 110,
         baseTexture: baseImg,
         displacementScale: 0.1,
         shading: 'lambert',
@@ -112,8 +151,6 @@ class App extends Component {
       }
     };
   }
-
-  componentWillUnmount() {}
 
   render() {
     return (
