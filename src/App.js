@@ -137,6 +137,7 @@ class App extends Component {
           textStyle: {
             fontSize: 12
           },
+          distance: 10,
           show: true,
           formatter: data => data.data.name
         },
