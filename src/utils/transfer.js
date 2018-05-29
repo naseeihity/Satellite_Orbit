@@ -6,7 +6,7 @@ const ee2 = (a * a - b * b) / (b * b);
 
 const toDegrees = angle => angle * (180 / Math.PI);
 
-const xyz2blh = (x, y, z) => {
+export const xyz2blh = (x, y, z) => {
   if (!isNumber(x) || !isNumber(y) || !isNumber(z)) {
     console.log('x||y||z is not a number!');
     return;
@@ -44,5 +44,7 @@ const xyz2blh = (x, y, z) => {
 
   return [toDegrees(latitude), toDegrees(longitude), height];
 };
+
+export const calcv = (x, y, z) => Math.sqrt(x * x + y * y + z * z);
 
 export default xyz2blh;
