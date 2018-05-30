@@ -262,7 +262,7 @@ class App extends Component {
 
   initOption() {
     return {
-      backgroundColor: '#000',
+      // backgroundColor: '#000',
       globe: {
         left: '-10%',
         viewControl: {
@@ -277,7 +277,7 @@ class App extends Component {
         baseTexture: baseImg,
         displacementScale: 0.1,
         shading: 'lambert',
-        environment: starImg,
+        // environment: starImg,
         light: { ambient: { intensity: 0.5 }, main: { intensity: 1.0 } },
         layers: [{ type: 'blend', blendTo: 'emission', texture: nightImg }]
       }
