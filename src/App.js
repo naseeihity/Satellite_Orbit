@@ -14,7 +14,7 @@ import { xyz2blh, calcv } from './utils/transfer';
 import baseImg from './asset/elev_bump_4k.jpg';
 // import baseImg from './asset/newearth.png';
 // import starImg from './asset/starfield.jpg';
-import starImg from './asset/star1.jpg';
+import starImg from './asset/star.jpg';
 import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
 
