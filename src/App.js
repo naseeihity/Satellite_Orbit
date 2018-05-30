@@ -14,7 +14,7 @@ import { xyz2blh, calcv } from './utils/transfer';
 import baseImg from './asset/elev_bump_4k.jpg';
 // import baseImg from './asset/newearth.png';
 // import starImg from './asset/starfield.jpg';
-import starImg from './asset/back.jpg';
+import starImg from './asset/star.jpg';
 import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
 
@@ -267,7 +267,7 @@ class App extends Component {
         left: '-20%',
         width: '120%',
         viewControl: {
-          distance: 400,
+          distance: 300,
           maxDistance: 600,
           minDistance: 120,
           autoRotate: false,
