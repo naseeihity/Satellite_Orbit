@@ -4,7 +4,7 @@ import $ from 'jquery';
 import 'echarts-gl';
 import find from 'lodash.find';
 import isEqual from 'lodash.isequal';
-import difference from 'lodash.difference';
+import { difference } from './utils/utils';
 
 import { postStation, postSatellite, getStationStatus } from './utils/fetch';
 import WsSatellite from './utils/ws';
@@ -14,7 +14,7 @@ import { xyz2blh, calcv } from './utils/transfer';
 import baseImg from './asset/elev_bump_4k.jpg';
 // import baseImg from './asset/newearth.png';
 // import starImg from './asset/starfield.jpg';
-import starImg from './asset/star.jpg';
+import starImg from './asset/star1.jpg';
 import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
 
@@ -79,7 +79,9 @@ class App extends Component {
 
     getStationStatus().then(data => {
       if (!isEqual(data.stations, onlineStation)) {
-        data.stations = [12];
+        if (null === data.stations) {
+          data.stations = [];
+        }
         const changedItem = difference(data.stations, onlineStation);
 
         this.setState(prevState => {
@@ -204,7 +206,7 @@ class App extends Component {
         this.setState({ satellite: data.satellites });
 
         data.satellites.forEach(item => {
-          if (item.id === 2 || item.id === 3) {
+          if (item.id === 3) {
             subScribe(item.id);
           }
         });

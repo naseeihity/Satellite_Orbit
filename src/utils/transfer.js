@@ -18,13 +18,13 @@ export const xyz2blh = (x, y, z) => {
 
   const seta = Math.atan(a * z / (b * Math.sqrt(x * x + y * y)));
 
-  // get B
+  // get B纬度
   latitude = Math.atan(
     (z + ee2 * b * Math.pow(Math.sin(seta), 3)) /
       (Math.sqrt(x * x + y * y) - e2 * a * Math.pow(Math.cos(seta), 3))
   );
 
-  // get L
+  // get L经度
   if (x > 0) {
     longitude = Math.atan(y / x);
   } else if (x === 0 && y > 0) {
@@ -32,7 +32,11 @@ export const xyz2blh = (x, y, z) => {
   } else if (x === 0 && y < 0) {
     longitude = 3 * Math.PI / 2;
   } else if (x < 0) {
-    longitude = Math.atan(y / x) + Math.PI;
+    if (y >= 0) {
+      longitude = Math.atan(y / x) + Math.PI;
+    } else if (y < 0) {
+      longitude = -Math.PI + Math.atan(y / x);
+    }
   }
 
   // get H
@@ -42,7 +46,7 @@ export const xyz2blh = (x, y, z) => {
     z * Math.sin(latitude) -
     N * (1 - e2 * Math.pow(Math.sin(latitude), 2));
 
-  return [toDegrees(latitude), toDegrees(longitude), height];
+  return [toDegrees(longitude), toDegrees(latitude), height];
 };
 
 export const calcv = (x, y, z) => Math.sqrt(x * x + y * y + z * z);
