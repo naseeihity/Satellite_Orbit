@@ -14,7 +14,7 @@ import { xyz2blh, calcv } from './utils/transfer';
 import baseImg from './asset/elev_bump_4k.jpg';
 // import baseImg from './asset/newearth.png';
 // import starImg from './asset/starfield.jpg';
-import starImg from './asset/star1.jpg';
+import starImg from './asset/back.jpg';
 import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
 
@@ -264,20 +264,24 @@ class App extends Component {
     return {
       // backgroundColor: '#000',
       globe: {
-        left: '-10%',
+        left: '-20%',
+        width: '120%',
         viewControl: {
           distance: 400,
           maxDistance: 600,
           minDistance: 120,
           autoRotate: false,
-          targetCoord: [116.46, 39.92]
+          targetCoord: [116.46, 39.92],
+          autoRotate: true,
+          autoRotateSpeed: 0.5,
+          autoRotateAfterStill: 10000
         },
         globeRadius: 100,
         globeOuterRadius: 140,
         baseTexture: baseImg,
         displacementScale: 0.1,
         shading: 'lambert',
-        // environment: starImg,
+        environment: starImg,
         light: { ambient: { intensity: 0.5 }, main: { intensity: 1.0 } },
         layers: [{ type: 'blend', blendTo: 'emission', texture: nightImg }]
       }
