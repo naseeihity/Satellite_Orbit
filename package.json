@@ -33,6 +33,7 @@
     "html-webpack-plugin": "2.29.0",
     "jest": "20.0.4",
     "jquery": "^3.3.1",
+    "jss": "^9.8.1",
     "lodash.difference": "^4.5.0",
     "lodash.find": "^4.6.0",
     "lodash.isequal": "^4.5.0",
