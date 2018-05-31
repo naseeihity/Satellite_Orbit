@@ -1,0 +1,25 @@
+.platform_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+.platform_total {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.platform_total > div {
+  background: #415f98;
+}
+
+.platform_chart {
+  display: flex;
+  flex: 2;
+  align-items: center;
+  justify-content: center;
+}

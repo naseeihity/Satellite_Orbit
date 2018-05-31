@@ -1,0 +1,42 @@
+.ctlbar_drawer > div {
+  background: #010627;
+  border-right-color: #415f98;
+}
+
+.ctlbar_drawer span {
+  color: #fff;
+  font-size: 0.8rem;
+}
+.ctlbar_drawer hr,
+.ctlbar_right hr {
+  background: #415f98;
+}
+
+.ctlbar_content {
+  width: 0;
+  height: 0;
+}
+.ctlbar_drawer ul {
+  padding: 0;
+}
+
+.ctlbar_right {
+  color: #fff;
+  flex: 1 0 auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-left: 50px;
+  width: 200px;
+  z-index: 1000;
+  background: rgba(6, 54, 125, 0.5);
+  border-right: 2px solid #010627;
+}
+
+.ctlbar_title {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 0.8rem;
+  padding-bottom: 0.5rem;
+}

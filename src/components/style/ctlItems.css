@@ -1,0 +1,25 @@
+.list {
+  cursor: pointer;
+}
+
+.list span {
+  width: 12px;
+  cursor: pointer;
+}
+
+.listItem {
+  padding: 5px 16px 5px;
+  border-bottom: 1px solid #3b5e9c;
+}
+
+.listItem div {
+  padding: 0;
+}
+
+.active {
+  background: #3b5e9c;
+}
+
+.listItem:hover {
+  background: #3b5e9c;
+}

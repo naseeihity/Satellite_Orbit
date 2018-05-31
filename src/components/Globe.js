@@ -270,7 +270,6 @@ class Globe extends Component {
           distance: 300,
           maxDistance: 600,
           minDistance: 120,
-          autoRotate: false,
           targetCoord: [116.46, 39.92],
           autoRotate: true,
           autoRotateSpeed: 0.5,
