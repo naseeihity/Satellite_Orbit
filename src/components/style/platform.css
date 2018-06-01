@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'digita';
+  src: url('./font/DS-DIGII.TTF');
+}
+
 .platform_box {
   display: flex;
   flex-direction: column;
@@ -8,13 +13,27 @@
 
 .platform_total {
   display: flex;
+  flex-direction: column;
   flex: 1;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
-.platform_total > div {
-  background: #415f98;
+.total {
+  margin-top: -1.4rem;
+  float: left;
+  color: #fff;
+  background: rgb(6, 54, 125);
+}
+
+.totalnum {
+  padding: 10px;
+  border: 1px solid #3b5e9c;
+  font-family: 'digita';
+  font-size: 3rem;
+  color: #74fa8d;
+  background: transparent;
 }
 
 .platform_chart {
@@ -22,4 +41,10 @@
   flex: 2;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  background: rgba(208, 233, 255, 0.5);
+}
+
+.echarts {
+  height: 100%;
 }
