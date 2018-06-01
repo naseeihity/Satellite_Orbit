@@ -27,8 +27,8 @@
   top: 0;
   bottom: 0;
   left: 0;
-  padding-left: 50px;
-  width: 200px;
+  padding-left: 49px;
+  width: 30vw;
   z-index: 1000;
   background: rgba(6, 54, 125, 0.5);
   border-right: 2px solid #010627;
@@ -36,7 +36,6 @@
 
 .ctlbar_title {
   text-align: center;
-  margin: 10px 0;
+  margin: 14.5px 0;
   font-size: 0.8rem;
-  padding-bottom: 0.5rem;
 }

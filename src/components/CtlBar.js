@@ -3,16 +3,19 @@ import { Drawer, List, IconButton, Divider } from '@material-ui/core';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import CtlItems from './CtlItems';
 import CtlbarContent from './CtlbarContent';
-import Orbit from './Orbit';
 import Platform from './Platform';
+import Satellite from './Satellite';
+import Orbit from './Orbit';
 
 import styles from './style/ctlbar.css';
 
+const pages = [Platform, Satellite, Orbit];
 class CtlBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: props.isOpen
+      open: props.isOpen,
+      pageId: 0
     };
   }
 
@@ -27,10 +30,16 @@ class CtlBar extends Component {
     this.props.closeCallback(false);
   };
 
-  render() {
-    const { open } = this.state;
-    const ctlBarCls = open ? styles.ctlbar_drawer : '';
+  loadpage = id => {
+    this.setState({
+      pageId: id
+    });
+  };
 
+  render() {
+    const { open, pageId } = this.state;
+    const ctlBarCls = open ? styles.ctlbar_drawer : '';
+    const Page = pages[pageId];
     return (
       <div className={styles.ctlbar_content}>
         <Drawer variant="permanent" open={open} className={ctlBarCls}>
@@ -39,12 +48,12 @@ class CtlBar extends Component {
           </IconButton>
           <Divider />
           <List>
-            <CtlItems />
+            <CtlItems selectedPage={this.loadpage} />
           </List>
         </Drawer>
         <div className={styles.ctlbar_right}>
           <CtlbarContent>
-            <Platform />
+            <Page />
           </CtlbarContent>
         </div>
       </div>
