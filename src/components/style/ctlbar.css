@@ -39,3 +39,13 @@
   margin: 14.5px 0;
   font-size: 0.8rem;
 }
+
+.satellite_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.satellite_content span:last-child {
+  color: #fff;
+}
