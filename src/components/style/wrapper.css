@@ -2,25 +2,31 @@
   height: 100%;
 }
 
-.right_btn {
+.btn {
   position: absolute;
-  top: 5px;
-  left: 5px;
   z-index: 1000;
   background-color: #010627;
   box-shadow: 0px 3px 5px -1px rgba(2, 2, 2, 0.2),
     0px 6px 10px 0px rgba(2, 2, 2, 0.14), 0px 1px 18px 0px rgba(2, 2, 2, 0.12);
   border: 1px solid #ddd;
 }
-.right_btn:active {
+.btn:active {
   background-color: #415f98;
 }
 
-.right_btn:hover {
+.btn:hover {
   background-color: #010627;
 }
 
-.right_btn_hide {
+.btn_left {
+  top: 5px;
+  left: 5px;
+}
+.btn_right {
+  right: 5px;
+  bottom: 5px;
+}
+.btn_hide {
   display: none;
 }
 

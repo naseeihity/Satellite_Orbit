@@ -1,0 +1,62 @@
+.content {
+  width: 50vw;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1200;
+  background: rgba(6, 54, 125, 0.5);
+}
+
+.content span {
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.content hr {
+  background: #415f98;
+}
+
+.right_btn {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
+
+.tabbox {
+  height: 100%;
+  margin-bottom: -48px;
+}
+
+.appbar {
+  background: #3b5e9c;
+}
+
+.tab {
+  min-width: 10vw;
+}
+
+.charts_box {
+  padding: 10px 0;
+  margin: 0 10px;
+  box-sizing: border-box;
+}
+
+.charts_box div {
+  color: #fff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 50vw;
+  text-align: center;
+  border-top: 1px solid #3b5e9c;
+}
+
+.title {
+  height: 48px;
+  display: inline-block;
+  line-height: 48px;
+}

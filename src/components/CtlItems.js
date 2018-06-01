@@ -29,6 +29,7 @@ class CtlItems extends Component {
 
   select = id => {
     this.setState({ activeNum: id });
+    this.props.selectedPage(id);
   };
 
   render() {
