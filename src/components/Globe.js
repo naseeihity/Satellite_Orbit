@@ -264,8 +264,6 @@ class Globe extends Component {
     return {
       // backgroundColor: '#000',
       globe: {
-        left: '-20%',
-        width: '120%',
         viewControl: {
           distance: 300,
           maxDistance: 600,

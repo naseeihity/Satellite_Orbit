@@ -4,10 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import { postSmart } from './utils/fetch';
 
 import styles from './style/ctlbar.css';
 
@@ -36,8 +35,19 @@ class Satellite extends Component {
     };
   }
 
+  componentDidMount() {
+    this.getSelectInfo();
+  }
+
+  getSelectInfo = () => {
+    const id = parseInt(this.state.value, 10);
+    postSmart({ sateId: id }).then(data => {
+      console.log(data);
+    });
+  };
+
   handleChange = event => {
-    this.setState({ value: event.target.value });
+    this.setState({ value: event.target.value }, this.getSelectInfo);
   };
 
   render() {
@@ -57,7 +67,6 @@ class Satellite extends Component {
             >
               <FormControlLabel
                 value="3"
-                checked
                 control={
                   <Radio
                     classes={{ root: classes.root, checked: classes.checked }}
@@ -67,6 +76,7 @@ class Satellite extends Component {
               />
               <FormControlLabel
                 value="2"
+                checked
                 control={
                   <Radio
                     classes={{ root: classes.root, checked: classes.checked }}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Drawer, List, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
@@ -46,7 +46,7 @@ class SatelliteInfo extends Component {
   };
 
   render() {
-    const { open, pageId } = this.state;
+    const { pageId } = this.state;
     return (
       <div className={styles.content}>
         <div className={styles.tabbox}>
