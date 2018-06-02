@@ -5,16 +5,20 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import Globe from './Globe';
 import CtlBar from './CtlBar';
 import SatelliteInfo from './SatelliteInfo';
+import { postSatellite } from './utils/fetch';
 
 import styles from './style/wrapper.css';
 
 class Wapper extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      lopen: false,
-      ropen: false
-    };
+    this.state = { lopen: false, ropen: false, satellites: [] };
+  }
+
+  componentDidMount() {
+    postSatellite().then(data => {
+      this.setState({ satellites: data.satellites });
+    });
   }
 
   handleDrawerOpen = () => {
@@ -34,7 +38,7 @@ class Wapper extends Component {
   };
 
   render() {
-    const { lopen, ropen } = this.state;
+    const { lopen, ropen, satellites } = this.state;
     const openleftCls = lopen ? styles.btn_hide : '';
     const openrightCls = ropen ? styles.btn_hide : '';
 
@@ -51,9 +55,13 @@ class Wapper extends Component {
           <ChevronRight />
         </Button>
         {lopen ? (
-          <CtlBar isOpen={lopen} closeCallback={this.closeDrawer} />
+          <CtlBar
+            isOpen={lopen}
+            closeCallback={this.closeDrawer}
+            satellites={satellites}
+          />
         ) : null}
-        <Globe />
+        <Globe satellites={satellites} />
         <Button
           mini
           variant="fab"

@@ -38,8 +38,10 @@ class CtlBar extends Component {
 
   render() {
     const { open, pageId } = this.state;
+    let { satellites } = this.props;
     const ctlBarCls = open ? styles.ctlbar_drawer : '';
     const Page = pages[pageId];
+
     return (
       <div className={styles.ctlbar_content}>
         <Drawer variant="permanent" open={open} className={ctlBarCls}>
@@ -53,7 +55,7 @@ class CtlBar extends Component {
         </Drawer>
         <div className={styles.ctlbar_right}>
           <CtlbarContent>
-            <Page />
+            <Page satellites={satellites} />
           </CtlbarContent>
         </div>
       </div>

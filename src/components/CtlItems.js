@@ -33,7 +33,6 @@ class CtlItems extends Component {
   };
 
   render() {
-    const len = ListItems.length;
     const { activeNum } = this.state;
     const items = ListItems.map((item, index) => {
       const active = index === activeNum ? styles.active : '';

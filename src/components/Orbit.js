@@ -3,10 +3,11 @@ import { Divider } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import Switch from '@material-ui/core/Switch';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
+import evt from './utils/event';
+import { CMD } from './utils/api';
 
 import styles from './style/ctlbar.css';
 
@@ -24,22 +25,60 @@ const materialStyles = {
   checked: {}
 };
 
+const SPACE_STATION = 3;
+
 class Orbit extends Component {
   constructor(props) {
     super(props);
+    this.sates = {};
+    props.satellites.forEach(item => {
+      let status = false;
+      SPACE_STATION === item.id && (status = true);
+      this.sates[item.name] = {
+        status: status,
+        id: item.id
+      };
+    });
     this.state = {
+      ...this.sates,
       checked: [],
       spaceStation: true,
       njust1: false
     };
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
+  componentDidMount() {
+    console.log(this.state);
+  }
+
+  handleChange = (name, id) => event => {
+    this.setState({ [name]: {status: event.target.checked, id: id }});
+    const type = event.target.checked ? CMD.ADD : CMD.REMOVE;
+    evt.emit('subscirbeSatellite', { id, type });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, satellites } = this.props;
+    const Labes = satellites.map((item, index) => {
+      return (
+        <FormControlLabel
+          key = {item.id}
+          control={
+            <Switch
+              checked={this.state[item.name].status}
+              onChange={this.handleChange(item.name, item.id)}
+              value={item.name}
+              classes={{
+                switchBase: classes.switchBase,
+                checked: classes.checked,
+                bar: classes.bar
+              }}
+            />
+          }
+          label={item.name.toUpperCase()}
+        />
+      );
+    });
     return (
       <div>
         <div className={styles.ctlbar_title}>卫星轨迹订阅</div>
@@ -47,36 +86,7 @@ class Orbit extends Component {
         <div className={styles.satellite_content}>
           <FormControl component="fieldset">
             <FormGroup>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.spaceStation}
-                    onChange={this.handleChange('spaceStation')}
-                    value="gilad"
-                    classes={{
-                      switchBase: classes.switchBase,
-                      checked: classes.checked,
-                      bar: classes.bar
-                    }}
-                  />
-                }
-                label="SPACE-STATION"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.state.njust1}
-                    onChange={this.handleChange('njust1')}
-                    value="jason"
-                    classes={{
-                      switchBase: classes.switchBase,
-                      checked: classes.checked,
-                      bar: classes.bar
-                    }}
-                  />
-                }
-                label="NJUST-1"
-              />
+              {Labes}
             </FormGroup>
           </FormControl>
         </div>
