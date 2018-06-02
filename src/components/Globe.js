@@ -4,12 +4,14 @@ import $ from 'jquery';
 import 'echarts-gl';
 import find from 'lodash.find';
 import isEqual from 'lodash.isequal';
+import remove from 'lodash.remove';
 import { difference } from './utils/utils';
 
 import { postStation, postSatellite, getStationStatus } from './utils/fetch';
 import WsSatellite from './utils/ws';
 import { CMD } from './utils/api';
 import { xyz2blh, calcv } from './utils/transfer';
+import evt from './utils/event';
 
 import baseImg from './asset/elev_bump_4k.jpg';
 // import baseImg from './asset/newearth.png';
@@ -19,6 +21,7 @@ import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
 
 const A = 6378137;
+const SPACE_STATION = 3;
 
 class Globe extends Component {
   constructor(props) {
@@ -26,7 +29,7 @@ class Globe extends Component {
 
     this.echart = React.createRef();
 
-    this.state = { satellite: [], stationsCache: [], onlineStation: [] };
+    this.state = { satellites: [], stationsCache: [], onlineStation: [] };
 
     this.ws = {};
     this.interv = null;
@@ -42,22 +45,23 @@ class Globe extends Component {
   }
 
   componentDidMount() {
-    const echarts_instance = this.echart.current.getEchartsInstance();
-
     this.ws = new WsSatellite();
 
-    echarts_instance.on('click', params => {
-      if (params.componentType === 'series') {
-        if (
-          params.seriesType === 'scatter3D' &&
-          params.seriesName === 'satellite'
-        ) {
-          console.log('clicked satellite');
-        }
-      }
+    this.evtEmit = evt.addListener('subscirbeSatellite', item => {
+      this.subScribe(item.id, item.type);
     });
+
     this.getStations();
-    this.getSatellite();
+    this.getSatellite(SPACE_STATION);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.satellites &&
+      !Object.is(nextProps.satellites, this.props.satellites)
+    ) {
+      this.setState({ satellites: nextProps.satellites });
+    }
   }
 
   getEchartOpt() {
@@ -197,33 +201,41 @@ class Globe extends Component {
     });
   }
 
-  getSatellite() {
+  getSatellite(id) {
     const subScribe = this.subScribe;
     const getMsg = this.getMsg;
 
     const ws = this.ws;
 
     ws.connect().then(() => {
-      postSatellite().then(data => {
-        this.setState({ satellite: data.satellites });
-
-        data.satellites.forEach(item => {
-          if (item.id === 3 || item.id === 2) {
-            subScribe(item.id);
-          }
-        });
-        ws.getRes(getMsg);
-      });
+      subScribe(id);
+      ws.getRes(getMsg);
     });
   }
 
-  subScribe(id) {
+  subScribe(id, type) {
+    let series = [].concat(this.getEchartOpt().series);
     const ws = this.ws;
-    ws.open(CMD.ADD, id);
+    const cmd = type || CMD.ADD;
+    ws.open(cmd, id);
+
+    if (CMD.REMOVE === cmd) {
+      series.forEach(item => {
+        if ('satellite' === item.name) {
+          remove(item.data, { id: id });
+        }
+      });
+
+      this.setOption([
+        {
+          series
+        }
+      ]);
+    }
   }
 
   getMsg(msg) {
-    const satellite = this.state.satellite;
+    const { satellites } = this.state;
     let series = [].concat(this.getEchartOpt().series);
 
     if (msg.data.postions) {
@@ -234,10 +246,11 @@ class Globe extends Component {
         const v = calcv(...pos.v);
         let blh = xyz2blh(xyz[0], xyz[1], xyz[2]);
 
-        const name = find(satellite, { id: pos.sateId }).name;
+        const name = find(satellites, { id: pos.sateId }).name;
         const height = blh[2];
         blh[2] = blh[2] * 1000 / A;
         points.push({
+          id: pos.sateId,
           name: name,
           height: height,
           speed: v,
