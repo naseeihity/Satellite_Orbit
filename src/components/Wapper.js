@@ -6,16 +6,31 @@ import Globe from './Globe';
 import CtlBar from './CtlBar';
 import SatelliteInfo from './SatelliteInfo';
 import { postSatellite } from './utils/fetch';
+import evt from './utils/event';
+import { CMD } from './utils/api';
 
 import styles from './style/wrapper.css';
+
+const SPACE_STATION = 3;
 
 class Wapper extends Component {
   constructor(props) {
     super(props);
-    this.state = { lopen: false, ropen: false, satellites: [] };
+    this.state = {
+      lopen: false,
+      ropen: false,
+      satellites: [],
+      defaultSate: new Set([SPACE_STATION])
+    };
   }
 
   componentDidMount() {
+    const curSate = new Set(this.state.defaultSate);
+    this.evtEmit = evt.addListener('subscirbeSatellite', item => {
+      CMD.ADD === item.type ? curSate.add(item.id) : curSate.delete(item.id);
+      this.setState({ defaultSate: curSate });
+    });
+
     postSatellite().then(data => {
       this.setState({ satellites: data.satellites });
     });
@@ -38,7 +53,7 @@ class Wapper extends Component {
   };
 
   render() {
-    const { lopen, ropen, satellites } = this.state;
+    const { lopen, ropen, satellites, defaultSate } = this.state;
     const openleftCls = lopen ? styles.btn_hide : '';
     const openrightCls = ropen ? styles.btn_hide : '';
 
@@ -59,9 +74,10 @@ class Wapper extends Component {
             isOpen={lopen}
             closeCallback={this.closeDrawer}
             satellites={satellites}
+            defaultSate={defaultSate}
           />
         ) : null}
-        <Globe satellites={satellites} />
+        <Globe satellites={satellites} defaultSate={defaultSate} />
         <Button
           mini
           variant="fab"

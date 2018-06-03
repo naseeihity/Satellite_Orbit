@@ -25,15 +25,13 @@ const materialStyles = {
   checked: {}
 };
 
-const SPACE_STATION = 3;
-
 class Orbit extends Component {
   constructor(props) {
     super(props);
     this.sates = {};
     props.satellites.forEach(item => {
       let status = false;
-      SPACE_STATION === item.id && (status = true);
+      props.defaultSate.has(item.id) && (status = true);
       this.sates[item.name] = {
         status: status,
         id: item.id
@@ -52,7 +50,7 @@ class Orbit extends Component {
   }
 
   handleChange = (name, id) => event => {
-    this.setState({ [name]: {status: event.target.checked, id: id }});
+    this.setState({ [name]: { status: event.target.checked, id: id } });
     const type = event.target.checked ? CMD.ADD : CMD.REMOVE;
     evt.emit('subscirbeSatellite', { id, type });
   };
@@ -62,7 +60,7 @@ class Orbit extends Component {
     const Labes = satellites.map((item, index) => {
       return (
         <FormControlLabel
-          key = {item.id}
+          key={item.id}
           control={
             <Switch
               checked={this.state[item.name].status}
@@ -85,9 +83,7 @@ class Orbit extends Component {
         <Divider />
         <div className={styles.satellite_content}>
           <FormControl component="fieldset">
-            <FormGroup>
-              {Labes}
-            </FormGroup>
+            <FormGroup>{Labes}</FormGroup>
           </FormControl>
         </div>
       </div>
