@@ -38,7 +38,7 @@ class CtlBar extends Component {
 
   render() {
     const { open, pageId } = this.state;
-    let { satellites } = this.props;
+    let { satellites, defaultSate } = this.props;
     const ctlBarCls = open ? styles.ctlbar_drawer : '';
     const Page = pages[pageId];
 
@@ -55,7 +55,7 @@ class CtlBar extends Component {
         </Drawer>
         <div className={styles.ctlbar_right}>
           <CtlbarContent>
-            <Page satellites={satellites} />
+            <Page satellites={satellites} defaultSate={defaultSate} />
           </CtlbarContent>
         </div>
       </div>
