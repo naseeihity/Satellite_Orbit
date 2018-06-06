@@ -52,7 +52,12 @@ class Platform extends Component {
       grid: { left: '20%' },
       series: [
         {
+          label: { normal: { show: true } },
           data: count,
+          markLine: {
+            lineStyle: { color: '#74FA8D' },
+            data: [{ type: 'average', name: '平均值' }]
+          },
           type: 'line',
           symbolSize: 8,
           color: ['#325ea1'],

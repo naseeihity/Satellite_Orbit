@@ -47,7 +47,12 @@ class CtlItems extends Component {
         </ListItem>
       );
     });
-    return <div className={styles.list}>{items}</div>;
+    return (
+      <div className={styles.list}>
+        {items}
+        <span className={styles.quebec} />
+      </div>
+    );
   }
 }
 
