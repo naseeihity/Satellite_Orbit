@@ -52,7 +52,7 @@ class Globe extends Component {
     });
 
     this.getStations();
-    // this.getSatellite(SPACE_STATION);
+    this.getSatellite(SPACE_STATION);
   }
 
   componentWillReceiveProps(nextProps) {
