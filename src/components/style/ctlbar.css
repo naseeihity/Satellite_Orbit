@@ -1,6 +1,5 @@
 .ctlbar_drawer > div {
   background: #010627;
-  border-right-color: #415f98;
 }
 
 .ctlbar_drawer span {
@@ -48,4 +47,8 @@
 
 .satellite_content span:last-child {
   color: #fff;
+}
+
+.hide {
+  display: none;
 }
