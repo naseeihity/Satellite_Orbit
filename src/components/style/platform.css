@@ -29,17 +29,22 @@
 
 .totalnum {
   padding: 10px;
+  min-width: 20vw;
   border: 1px solid #3b5e9c;
   font-family: 'digita';
-  font-size: 3rem;
+  font-size: 2rem;
   color: #74fa8d;
   background: transparent;
   text-align: center;
 }
 
+.todayNum {
+  color: #f0e78d;
+}
+
 .platform_chart {
   display: flex;
-  flex: 2;
+  flex: 4;
   align-items: center;
   justify-content: center;
   width: 100%;

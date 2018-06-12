@@ -248,7 +248,7 @@ class Globe extends Component {
 
         const name = find(satellites, { id: pos.sateId }).name;
         const height = blh[2];
-        blh[2] = blh[2] * 1000 / A;
+        blh[2] = (blh[2] * 1000) / A;
         points.push({
           id: pos.sateId,
           name: name,

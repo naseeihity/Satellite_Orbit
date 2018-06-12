@@ -1,10 +1,7 @@
-.list {
-  cursor: pointer;
-}
-
-.list span {
+.listText span {
   width: 12px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .listItem {
@@ -16,15 +13,7 @@
   padding: 0;
 }
 
-.active {
-  background: #3b5e9c;
-}
-
-.listItem:hover {
-  background: #3b5e9c;
-}
-
-.list .quebec {
+.quebec {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -35,10 +24,8 @@
   height: 87px;
   padding: 0;
   overflow: hidden;
-
   background: #f50057;
-
-  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: top 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 }
 
 .listItem:nth-child(1).active ~ span.quebec {

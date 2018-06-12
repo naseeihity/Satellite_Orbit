@@ -43,12 +43,12 @@ class CtlItems extends Component {
           button
           onClick={e => this.select(item.id, e)}
         >
-          <ListItemText primary={item.name} />
+          <ListItemText className={styles.listText} primary={item.name} />
         </ListItem>
       );
     });
     return (
-      <div className={styles.list}>
+      <div>
         {items}
         <span className={styles.quebec} />
       </div>
