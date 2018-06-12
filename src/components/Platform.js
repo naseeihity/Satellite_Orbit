@@ -10,7 +10,7 @@ class Platform extends Component {
     super(props);
     this.echart = React.createRef();
 
-    this.state = { total: 0, date: [], count: [], days: 0 };
+    this.state = { total: 0, todayNum: 0, date: [], count: [], days: 0 };
   }
 
   componentDidMount() {
@@ -20,6 +20,7 @@ class Platform extends Component {
   getInfo = () => {
     getStatistic().then(data => {
       const total = data.total || 0;
+      const todayNum = data.today || 0;
       let days = 0;
       let date = [];
       let count = [];
@@ -31,7 +32,7 @@ class Platform extends Component {
         });
       }
 
-      this.setState({ total, date, count, days });
+      this.setState({ total, todayNum, date, count, days });
     });
   };
 
@@ -54,10 +55,6 @@ class Platform extends Component {
         {
           label: { normal: { show: true } },
           data: count,
-          markLine: {
-            lineStyle: { color: '#74FA8D' },
-            data: [{ type: 'average', name: '平均值' }]
-          },
           type: 'line',
           symbolSize: 8,
           color: ['#325ea1'],
@@ -68,7 +65,7 @@ class Platform extends Component {
   };
 
   render() {
-    const { total } = this.state;
+    const { total, todayNum } = this.state;
     return (
       <div className={styles.platform_box}>
         <div className={styles.platform_total}>
@@ -77,6 +74,14 @@ class Platform extends Component {
               累计接收数
             </Typography>
             {total}
+          </div>
+        </div>
+        <div className={styles.platform_total}>
+          <div className={`${styles.totalnum} ${styles.todayNum}`}>
+            <Typography component="div" className={styles.total}>
+              今日接收数
+            </Typography>
+            {todayNum}
           </div>
         </div>
         <div className={styles.platform_chart}>
