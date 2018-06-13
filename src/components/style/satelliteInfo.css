@@ -24,8 +24,7 @@
 }
 
 .tabbox {
-  height: 100%;
-  margin-bottom: -48px;
+  height: calc(100vh - 48px);
 }
 
 .appbar {
@@ -40,10 +39,21 @@
   padding: 10px 0;
   margin: 0 10px;
   box-sizing: border-box;
+  max-height: calc(100vh - 97px);
 }
 
-.charts_box div {
+.react-swipeable-view-container {
   color: #fff;
+  max-height: calc(100vh - 102px);
+}
+
+.react-swipeable-view-container > div {
+  overflow-y: hidden !important;
+}
+
+.tab_container {
+  width: 100%;
+  overflow-y: scroll;
 }
 
 .footer {
