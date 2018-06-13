@@ -7,6 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
+import StarService from './Tables/StarService';
 import styles from './style/satelliteInfo.css';
 
 const TabContainer = ({ children, dir }) => {
@@ -71,13 +72,21 @@ class SatelliteInfo extends Component {
             onChangeIndex={this.handleChangeIndex}
             className={styles.charts_box}
           >
-            <TabContainer dir={'left'}>
-              <span>星务</span>
+            <TabContainer dir={'left'} className={styles.tab_container}>
+              <StarService />
             </TabContainer>
-            <TabContainer dir={'left'}>姿控</TabContainer>
-            <TabContainer dir={'left'}>通信</TabContainer>
-            <TabContainer dir={'left'}>电源</TabContainer>
-            <TabContainer dir={'left'}>载荷</TabContainer>
+            <TabContainer dir={'left'} className={styles.tab_container}>
+              姿控
+            </TabContainer>
+            <TabContainer dir={'left'} className={styles.tab_container}>
+              通信
+            </TabContainer>
+            <TabContainer dir={'left'} className={styles.tab_container}>
+              电源
+            </TabContainer>
+            <TabContainer dir={'left'} className={styles.tab_container}>
+              载荷
+            </TabContainer>
           </SwipeableViews>
         </div>
         <div className={styles.footer}>
