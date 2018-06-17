@@ -1,0 +1,27 @@
+.threeRow {
+  display: flex;
+  width: 12vw;
+}
+
+.threeRow th {
+  flex: 0 0 15.7vw;
+}
+
+.threeRow td {
+  flex: 0 0 15.7vw;
+  background: inherit;
+}
+
+.fourRow {
+  display: flex;
+  max-width: 100%;
+}
+
+.fourRow th {
+  flex: 0 0 11.81vw;
+}
+
+.fourRow td {
+  flex: 0 0 11.81vw;
+  background: inherit;
+}

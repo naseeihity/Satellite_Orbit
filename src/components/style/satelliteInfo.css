@@ -39,16 +39,22 @@
   padding: 10px 0;
   margin: 0 10px;
   box-sizing: border-box;
+  overflow: hidden;
   max-height: calc(100vh - 97px);
 }
 
-.react-swipeable-view-container {
-  color: #fff;
-  max-height: calc(100vh - 102px);
+.charts_box * {
+  box-sizing: border-box;
 }
 
-.react-swipeable-view-container > div {
-  overflow-y: hidden !important;
+.charts_box > div {
+  color: #fff;
+  height: calc(100vh - 102px);
+}
+
+.charts_box > div > div {
+  overflow-y: auto !important;
+  height: 100%;
 }
 
 .tab_container {
