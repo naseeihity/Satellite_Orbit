@@ -8,6 +8,10 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
 import StarService from './Tables/StarService';
+import PostureCtl from './Tables/PostureCtl';
+import Communication from './Tables/Communication';
+import PowerSupply from './Tables/PowerSupply';
+
 import styles from './style/satelliteInfo.css';
 
 const TabContainer = ({ children, dir }) => {
@@ -76,13 +80,13 @@ class SatelliteInfo extends Component {
               <StarService />
             </TabContainer>
             <TabContainer dir={'left'} className={styles.tab_container}>
-              姿控
+              <PostureCtl />
             </TabContainer>
             <TabContainer dir={'left'} className={styles.tab_container}>
-              通信
+              <Communication />
             </TabContainer>
             <TabContainer dir={'left'} className={styles.tab_container}>
-              电源
+              <PowerSupply />
             </TabContainer>
             <TabContainer dir={'left'} className={styles.tab_container}>
               载荷
