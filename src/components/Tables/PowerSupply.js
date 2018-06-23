@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import tableStyles from '../style/table.css';
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -36,21 +38,9 @@ const styles = theme => ({
   }
 });
 
-const obc = {
-  no: 1,
-  time: '2018-6-13',
-  chipTemp: 35,
-  mode: 1,
-  rstCnt: 10,
-  upCnt: 4,
-  downCnt: 6,
-  storeCnt: 33,
-  lastRst: '2018-6-13',
-  obcTemp: 65
-};
-
 function PowerSupply(props) {
-  const { classes } = props;
+  const { classes, powerInfo: info } = props;
+  const eps = info ? info : null;
 
   return (
     <Paper className={classes.root}>
@@ -65,10 +55,10 @@ function PowerSupply(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              {obc.no}
+              {eps.motherCurr} mA
             </CustomTableCell>
-            <CustomTableCell>{obc.time}</CustomTableCell>
-            <CustomTableCell>{obc.chipTemp}</CustomTableCell>
+            <CustomTableCell>{eps.motherVol} V</CustomTableCell>
+            <CustomTableCell>{eps.commCurr} mA</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -85,12 +75,12 @@ function PowerSupply(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              {obc.upCnt}
+              {eps.curr[0]} mA
             </CustomTableCell>
-            <CustomTableCell>{obc.downCnt}</CustomTableCell>
-            <CustomTableCell>{obc.storeCnt}</CustomTableCell>
-            <CustomTableCell>{obc.lastRst}</CustomTableCell>
-            <CustomTableCell>{obc.obcTemp}</CustomTableCell>
+            <CustomTableCell>{eps.curr[1]} mA</CustomTableCell>
+            <CustomTableCell>{eps.curr[2]} mA</CustomTableCell>
+            <CustomTableCell>{eps.curr[3]} mA</CustomTableCell>
+            <CustomTableCell>{eps.curr[4]} mA</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -105,12 +95,12 @@ function PowerSupply(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              1
+              {eps.vol[0]} V
             </CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+            <CustomTableCell>{eps.vol[1]} V</CustomTableCell>
+            <CustomTableCell>{eps.vol[2]} V</CustomTableCell>
+            <CustomTableCell>{eps.vol[3]} V</CustomTableCell>
+            <CustomTableCell>{eps.vol[4]} V</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -125,12 +115,12 @@ function PowerSupply(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              1
+              {eps.temp[0]} &#8451;
             </CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+            <CustomTableCell>{eps.temp[1]} &#8451;</CustomTableCell>
+            <CustomTableCell>{eps.temp[2]} &#8451;</CustomTableCell>
+            <CustomTableCell>{eps.temp[3]} &#8451;</CustomTableCell>
+            <CustomTableCell>{eps.temp[4]} &#8451;</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>

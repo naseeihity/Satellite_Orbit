@@ -6,7 +6,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { postSmart } from './utils/fetch';
+import evt from './utils/event';
+import { postSmart, postCurInfo } from './utils/fetch';
 
 import styles from './style/ctlbar.css';
 
@@ -41,8 +42,16 @@ class Satellite extends Component {
 
   getSelectInfo = () => {
     const id = parseInt(this.state.value, 10);
+    // 订阅卫星轨迹
     postSmart({ sateId: id }).then(data => {
-      console.log(data);
+      console.log('卫星轨迹订阅成功：', data);
+    });
+
+    // 查询卫星信息
+    postCurInfo({ sateId: id }).then(data => {
+      // 发布当前订阅的卫星 id
+      console.log('订阅卫星信息成功:', data);
+      evt.emit('getSateInfo', { id, data });
     });
   };
 
@@ -59,29 +68,16 @@ class Satellite extends Component {
         <Divider />
         <div className={styles.satellite_content}>
           <FormControl component="fieldset" required>
-            <RadioGroup
-              aria-label="satellite"
-              name="satellite"
-              value={this.state.value}
-              onChange={this.handleChange}
-            >
+            <RadioGroup aria-label="satellite" name="satellite" value={this.state.value} onChange={this.handleChange}>
               <FormControlLabel
                 value="3"
-                control={
-                  <Radio
-                    classes={{ root: classes.root, checked: classes.checked }}
-                  />
-                }
+                control={<Radio classes={{ root: classes.root, checked: classes.checked }} />}
                 label="SPACE-STATION"
               />
               <FormControlLabel
                 value="2"
                 checked
-                control={
-                  <Radio
-                    classes={{ root: classes.root, checked: classes.checked }}
-                  />
-                }
+                control={<Radio classes={{ root: classes.root, checked: classes.checked }} />}
                 label="NJUST-1"
               />
             </RadioGroup>

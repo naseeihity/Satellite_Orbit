@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import tableStyles from '../style/table.css';
+
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -36,25 +38,13 @@ const styles = theme => ({
   }
 });
 
-const obc = {
-  no: 1,
-  time: '2018-6-13',
-  chipTemp: 35,
-  mode: 1,
-  rstCnt: 10,
-  upCnt: 4,
-  downCnt: 6,
-  storeCnt: 33,
-  lastRst: '2018-6-13',
-  obcTemp: 65
-};
-
 function Communication(props) {
-  const { classes } = props;
+  const { classes, communicationInfo: info } = props;
+  const comm = info ? info : null;
 
   return (
     <Paper className={classes.root}>
-      <div>通信息系(发送端)</div>
+      <div className={tableStyles.title}>通信息系(发送端)</div>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -68,16 +58,16 @@ function Communication(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              {obc.no}
+              {comm.recv.cur}
             </CustomTableCell>
-            <CustomTableCell>{obc.time}</CustomTableCell>
-            <CustomTableCell>{obc.chipTemp}</CustomTableCell>
-            <CustomTableCell>{obc.mode}</CustomTableCell>
-            <CustomTableCell>{obc.rstCnt}</CustomTableCell>
+            <CustomTableCell>{comm.recv.motherVol} mA</CustomTableCell>
+            <CustomTableCell>{comm.recv.cryTemp} V</CustomTableCell>
+            <CustomTableCell>{comm.recv.ampTemp} &#8451;</CustomTableCell>
+            <CustomTableCell>{comm.recv.signal} &#8451;</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
-      <div>通信信息(接收端)</div>
+      <div className={tableStyles.title}>通信信息(接收端)</div>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -91,12 +81,12 @@ function Communication(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell component="th" scope="row">
-              {obc.upCnt}
+              {comm.send.reflectPower} dBm
             </CustomTableCell>
-            <CustomTableCell>{obc.downCnt}</CustomTableCell>
-            <CustomTableCell>{obc.storeCnt}</CustomTableCell>
-            <CustomTableCell>{obc.lastRst}</CustomTableCell>
-            <CustomTableCell>{obc.obcTemp}</CustomTableCell>
+            <CustomTableCell>{comm.send.forwardPower} dBm</CustomTableCell>
+            <CustomTableCell>{comm.send.cryTemp} &#8451;</CustomTableCell>
+            <CustomTableCell>{comm.send.ampTemp} &#8451;</CustomTableCell>
+            <CustomTableCell>{comm.send.status}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
