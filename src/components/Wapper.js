@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import find from 'lodash.find';
 import Button from '@material-ui/core/Button';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import Globe from './Globe';
 import CtlBar from './CtlBar';
 import SatelliteInfo from './SatelliteInfo';
-import { postSatellite } from './utils/fetch';
+import { postSatellite, postCurInfo } from './utils/fetch';
 import evt from './utils/event';
 import { CMD } from './utils/api';
 
@@ -20,19 +21,33 @@ class Wapper extends Component {
       lopen: false,
       ropen: false,
       satellites: [],
-      defaultSate: new Set([SPACE_STATION])
+      defaultSate: new Set([SPACE_STATION]),
+      curSateId: '2', // 默认订阅的卫星
+      curSateInfo: null
     };
   }
 
   componentDidMount() {
     const curSate = new Set(this.state.defaultSate);
-    this.evtEmit = evt.addListener('subscirbeSatellite', item => {
+    const id = this.state.curSateId;
+    // 监听地面站在线状态改变
+    evt.addListener('subscirbeSatellite', item => {
       CMD.ADD === item.type ? curSate.add(item.id) : curSate.delete(item.id);
       this.setState({ defaultSate: curSate });
     });
 
+    // 监听订阅的卫星(信息)改变
+    evt.addListener('getSateInfo', item => {
+      this.setState({ curSateId: item.id, curSateInfo: item.data });
+    });
+
     postSatellite().then(data => {
       this.setState({ satellites: data.satellites });
+    });
+
+    // 默认订阅卫星数据
+    postCurInfo({ sateId: id }).then(data => {
+      this.setState({ curSateInfo: data });
     });
   }
 
@@ -53,9 +68,10 @@ class Wapper extends Component {
   };
 
   render() {
-    const { lopen, ropen, satellites, defaultSate } = this.state;
+    const { lopen, ropen, satellites, defaultSate, curSateInfo, curSateId } = this.state;
     const openleftCls = lopen ? styles.btn_hide : '';
     const openrightCls = ropen ? styles.btn_hide : '';
+    const curSate = find(satellites, ('id': curSateId)) || '';
 
     return (
       <div className={styles.wapper_box}>
@@ -70,12 +86,7 @@ class Wapper extends Component {
           <ChevronRight />
         </Button>
         {lopen ? (
-          <CtlBar
-            isOpen={lopen}
-            closeCallback={this.closeDrawer}
-            satellites={satellites}
-            defaultSate={defaultSate}
-          />
+          <CtlBar isOpen={lopen} closeCallback={this.closeDrawer} satellites={satellites} defaultSate={defaultSate} />
         ) : null}
         <Globe satellites={satellites} defaultSate={defaultSate} />
         <Button
@@ -89,7 +100,7 @@ class Wapper extends Component {
           <ChevronLeft />
         </Button>
         {ropen ? (
-          <SatelliteInfo isOpen={ropen} closeCallback={this.closeTab} />
+          <SatelliteInfo isOpen={ropen} closeCallback={this.closeTab} curSateInfo={curSateInfo} curSate={curSate} />
         ) : null}
       </div>
     );

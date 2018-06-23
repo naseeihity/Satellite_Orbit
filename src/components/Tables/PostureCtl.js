@@ -8,7 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import postStyles from '../style/table.css';
+import { transAdcs } from '../utils/transfer';
+
+import tableStyles from '../style/table.css';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
@@ -38,29 +40,12 @@ const styles = theme => ({
   }
 });
 
-const obc = {
-  no: 1,
-  time: '2018-6-13',
-  chipTemp: 35,
-  mode: 1,
-  rstCnt: 10,
-  upCnt: 4,
-  downCnt: 6,
-  storeCnt: 33,
-  lastRst: '2018-6-13',
-  obcTemp: 65
-};
-
 function PostureCtl(props) {
-  const { classes } = props;
-
+  const { classes, postureCtlInfo: info } = props;
+  const adcs = info ? transAdcs(info) : null;
   return (
     <Paper className={classes.root}>
-      <Table
-        className={classes.table}
-        fixedHeader={false}
-        style={{ tableLayout: 'auto' }}
-      >
+      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
         <TableHead>
           <TableRow>
             <CustomTableCell>姿控模式</CustomTableCell>
@@ -72,11 +57,11 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell>{obc.no}</CustomTableCell>
-            <CustomTableCell>{obc.time}</CustomTableCell>
-            <CustomTableCell>{obc.chipTemp}</CustomTableCell>
-            <CustomTableCell>{obc.mode}</CustomTableCell>
-            <CustomTableCell>{obc.rstCnt}</CustomTableCell>
+            <CustomTableCell>{adcs.mode}</CustomTableCell>
+            <CustomTableCell>{adcs.absTime}</CustomTableCell>
+            <CustomTableCell>{adcs.chipTemp}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.wheelSpd}</CustomTableCell>
+            <CustomTableCell>{adcs.rstCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -90,11 +75,11 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell>{obc.upCnt}</CustomTableCell>
-            <CustomTableCell>{obc.downCnt}</CustomTableCell>
-            <CustomTableCell>{obc.storeCnt}</CustomTableCell>
-            <CustomTableCell>{obc.lastRst}</CustomTableCell>
-            <CustomTableCell>{obc.obcTemp}</CustomTableCell>
+            <CustomTableCell>{adcs.dampCnt}</CustomTableCell>
+            <CustomTableCell>{adcs.meterCnt}</CustomTableCell>
+            <CustomTableCell>{adcs.stabCnt}</CustomTableCell>
+            <CustomTableCell>{adcs.lastRst}</CustomTableCell>
+            <CustomTableCell>{adcs.rcvCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -108,63 +93,71 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+            <CustomTableCell>
+              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+            </CustomTableCell>
+            <CustomTableCell>
+              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+            </CustomTableCell>
+            <CustomTableCell>
+              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+            </CustomTableCell>
+            <CustomTableCell>
+              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+            </CustomTableCell>
+            <CustomTableCell>
+              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+            </CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
-      <Table
-        className={classes.table}
-        fixedHeader={false}
-        style={{ tableLayout: 'auto' }}
-      >
+      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
         <TableHead>
-          <TableRow className={postStyles.threeRow}>
+          <TableRow>
             <CustomTableCell>磁强计X</CustomTableCell>
             <CustomTableCell>磁强计Y</CustomTableCell>
             <CustomTableCell>磁强计Z</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className={`${postStyles.threeRow} ${classes.row}`}>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+          <TableRow className={`${classes.row}`}>
+            <CustomTableCell>{adcs.attiMeas.magmeter[0]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.magmeter[1]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.magmeter[2]}</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
-          <TableRow className={postStyles.threeRow}>
+          <TableRow>
             <CustomTableCell>陀螺仪X</CustomTableCell>
             <CustomTableCell>陀螺仪Y</CustomTableCell>
             <CustomTableCell>陀螺仪Z</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className={`${postStyles.threeRow} ${classes.row}`}>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+          <TableRow className={`${classes.row}`}>
+            <CustomTableCell>{adcs.attiMeas.gyro[0]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.gyro[1]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.gyro[2]}</CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
-          <TableRow className={postStyles.threeRow}>
+          <TableRow>
             <CustomTableCell>定姿偏航角</CustomTableCell>
             <CustomTableCell>定姿滚动角</CustomTableCell>
             <CustomTableCell>定姿俯仰角</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className={`${postStyles.threeRow} ${classes.row}`}>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+          <TableRow className={`${classes.row}`}>
+            <CustomTableCell>{adcs.attiDter.dVectorYaw}</CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.dVectorRolling}</CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.dVectorPitch}</CustomTableCell>
           </TableRow>
         </TableBody>
+      </Table>
+      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
         <TableHead>
-          <TableRow className={postStyles.fourRow}>
+          <TableRow>
             <CustomTableCell>俯仰角度</CustomTableCell>
             <CustomTableCell>俯仰角速度</CustomTableCell>
             <CustomTableCell>定轨模式</CustomTableCell>
@@ -172,11 +165,11 @@ function PostureCtl(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow className={`${postStyles.fourRow} ${classes.row}`}>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
-            <CustomTableCell>1</CustomTableCell>
+          <TableRow className={`${classes.row}`}>
+            <CustomTableCell>{adcs.attiDter.pitchAng}</CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.pitchAngSpd}</CustomTableCell>
+            <CustomTableCell>{adcs.orbit.mode}</CustomTableCell>
+            <CustomTableCell>{adcs.orbit.gpsCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
