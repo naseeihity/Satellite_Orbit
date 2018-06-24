@@ -23,17 +23,20 @@ class CtlItems extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeNum: 0
+      activeNum: 0,
+      style: {
+        top: 0
+      }
     };
   }
 
   select = id => {
-    this.setState({ activeNum: id });
+    this.setState({ activeNum: id, style: { top: id * 87 + 'px' } });
     this.props.selectedPage(id);
   };
 
   render() {
-    const { activeNum } = this.state;
+    const { activeNum, style } = this.state;
     const items = ListItems.map((item, index) => {
       const active = index === activeNum ? styles.active : '';
       return (
@@ -50,7 +53,7 @@ class CtlItems extends Component {
     return (
       <div>
         {items}
-        <span className={styles.quebec} />
+        <span className={styles.quebec} style={style} />
       </div>
     );
   }
