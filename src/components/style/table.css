@@ -23,3 +23,7 @@
   background: #1e3158;
   line-height: 2;
 }
+
+.table td {
+  font-family: 'digita', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+}

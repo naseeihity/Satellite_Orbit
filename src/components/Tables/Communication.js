@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import { transComm } from '../utils/transfer';
+
 import tableStyles from '../style/table.css';
 
 const CustomTableCell = withStyles(theme => ({
@@ -40,12 +42,12 @@ const styles = theme => ({
 
 function Communication(props) {
   const { classes, communicationInfo: info } = props;
-  const comm = info ? info : null;
+  const comm = info ? transComm(info) : null;
 
   return (
     <Paper className={classes.root}>
       <div className={tableStyles.title}>通信息系(发送端)</div>
-      <Table className={classes.table}>
+      <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
             <CustomTableCell>通信电流</CustomTableCell>
@@ -57,18 +59,16 @@ function Communication(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell component="th" scope="row">
-              {comm.recv.cur}
-            </CustomTableCell>
-            <CustomTableCell>{comm.recv.motherVol} mA</CustomTableCell>
-            <CustomTableCell>{comm.recv.cryTemp} V</CustomTableCell>
-            <CustomTableCell>{comm.recv.ampTemp} &#8451;</CustomTableCell>
-            <CustomTableCell>{comm.recv.signal} &#8451;</CustomTableCell>
+            <CustomTableCell>{comm.recv.cur}</CustomTableCell>
+            <CustomTableCell>{comm.recv.motherVol}</CustomTableCell>
+            <CustomTableCell>{comm.recv.cryTemp}</CustomTableCell>
+            <CustomTableCell>{comm.recv.ampTemp}</CustomTableCell>
+            <CustomTableCell>{comm.recv.signal}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
       <div className={tableStyles.title}>通信信息(接收端)</div>
-      <Table className={classes.table}>
+      <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
             <CustomTableCell>发射功率</CustomTableCell>
@@ -80,12 +80,10 @@ function Communication(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell component="th" scope="row">
-              {comm.send.reflectPower} dBm
-            </CustomTableCell>
-            <CustomTableCell>{comm.send.forwardPower} dBm</CustomTableCell>
-            <CustomTableCell>{comm.send.cryTemp} &#8451;</CustomTableCell>
-            <CustomTableCell>{comm.send.ampTemp} &#8451;</CustomTableCell>
+            <CustomTableCell>{comm.send.reflectPower}</CustomTableCell>
+            <CustomTableCell>{comm.send.forwardPower}</CustomTableCell>
+            <CustomTableCell>{comm.send.cryTemp}</CustomTableCell>
+            <CustomTableCell>{comm.send.ampTemp}</CustomTableCell>
             <CustomTableCell>{comm.send.status}</CustomTableCell>
           </TableRow>
         </TableBody>

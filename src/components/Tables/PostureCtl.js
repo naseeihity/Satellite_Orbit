@@ -45,7 +45,7 @@ function PostureCtl(props) {
   const adcs = info ? transAdcs(info) : null;
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
+      <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
             <CustomTableCell>姿控模式</CustomTableCell>
@@ -58,7 +58,7 @@ function PostureCtl(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell>{adcs.mode}</CustomTableCell>
-            <CustomTableCell>{adcs.absTime}</CustomTableCell>
+            <CustomTableCell>{adcs.absTime} s</CustomTableCell>
             <CustomTableCell>{adcs.chipTemp}</CustomTableCell>
             <CustomTableCell>{adcs.attiMeas.wheelSpd}</CustomTableCell>
             <CustomTableCell>{adcs.rstCnt}</CustomTableCell>
@@ -84,11 +84,11 @@ function PostureCtl(props) {
         </TableBody>
         <TableHead>
           <TableRow>
-            <CustomTableCell>开关状态#1</CustomTableCell>
-            <CustomTableCell>开关状态#2</CustomTableCell>
-            <CustomTableCell>开关状态#3</CustomTableCell>
-            <CustomTableCell>开关状态#4</CustomTableCell>
-            <CustomTableCell>开关状态#5</CustomTableCell>
+            <CustomTableCell>开关#1</CustomTableCell>
+            <CustomTableCell>开关#2</CustomTableCell>
+            <CustomTableCell>开关#3</CustomTableCell>
+            <CustomTableCell>开关#4</CustomTableCell>
+            <CustomTableCell>开关#5</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -111,7 +111,7 @@ function PostureCtl(props) {
           </TableRow>
         </TableBody>
       </Table>
-      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
+      <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
             <CustomTableCell>磁强计X</CustomTableCell>
@@ -155,7 +155,7 @@ function PostureCtl(props) {
           </TableRow>
         </TableBody>
       </Table>
-      <Table className={classes.table} style={{ tableLayout: 'auto' }}>
+      <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
             <CustomTableCell>俯仰角度</CustomTableCell>

@@ -12,6 +12,8 @@ import StarService from './Tables/StarService';
 import PostureCtl from './Tables/PostureCtl';
 import Communication from './Tables/Communication';
 import PowerSupply from './Tables/PowerSupply';
+import { CMD } from './utils/api';
+import evt from './utils/event';
 
 import styles from './style/satelliteInfo.css';
 
@@ -31,6 +33,14 @@ class SatelliteInfo extends Component {
       openSnackbar: true,
       pageId: 0
     };
+  }
+
+  componentDidMount() {
+    const { curSate } = this.props;
+    evt.emit('subscirbeSatellite', {
+      id: curSate.id,
+      type: CMD.ADD_TELEMETRY
+    });
   }
 
   componentWillReceiveProps(nextProps) {

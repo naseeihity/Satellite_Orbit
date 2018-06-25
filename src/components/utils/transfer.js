@@ -61,7 +61,7 @@ export default xyz2blh;
 
 const MODE = ['基本模式', '低电压模式'];
 const getTime = time => {
-  return dayjs(time).isValid() ? dayjs(time).format('YYYY-MM-DD HH:mm:ss') : '未知';
+  return dayjs(time).isValid() ? dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss') : '未知';
 };
 
 // 温度转化
@@ -73,6 +73,8 @@ const getTemperature = (t, type) => {
     return `${t * 0.0625} \u2103`;
   } else if ('CPU2' === type) {
     return `${t} \u2103`;
+  } else if ('COMM' === type) {
+    return `${(t * -0.07669 + 195.6037).toFixed(1)}  \u2103`;
   }
 };
 
@@ -92,20 +94,37 @@ const calMagmeter = mArr => {
 };
 
 const calGyro = gArr => {
-  return gArr.map(g => g * 100 + ' °/s');
+  return gArr.map(g => g / 100 + ' °/s');
 };
 
 const calDter = dObj => {
   var newObj = {};
   for (let key of Object.keys(dObj)) {
     if ('pitchAngSpd' === key) {
-      newObj[key] = dObj[key] * 100 + ' deg/s';
+      newObj[key] = dObj[key] / 100 + ' deg/s';
     } else {
-      newObj[key] = dObj[key] * 100 + ' deg';
+      newObj[key] = dObj[key] / 100 + ' deg';
     }
   }
   return newObj;
 };
+
+const calElectric = c => {
+  return (c * 0.16643964).toFixed(1) + ' mA';
+};
+
+const calVolt = v => {
+  return (v * 4.88).toFixed(1) + ' mV';
+};
+
+const calPower = p => {
+  return (20 * Math.log10(p * 0.00767)).toFixed(1) + ' dBM';
+};
+
+const calStrength = s => {
+  return (s * 0.03 - 152).toFixed(1) + ' dBM';
+};
+
 export const transObc = o => {
   const obc = clonedeep(o);
   let obcInfo = obc;
@@ -141,4 +160,29 @@ export const transAdcs = a => {
   adcsInfo.attiDter = calDter(adcs.attiDter);
 
   return adcsInfo;
+};
+
+export const transComm = c => {
+  const comm = clonedeep(c);
+
+  let commInfo = comm;
+
+  // 电流转换
+  commInfo.recv.cur = calElectric(comm.recv.cur);
+  // 电压
+  commInfo.recv.motherVol = calVolt(comm.recv.motherVol);
+  // 温度
+  commInfo.recv.cryTemp = getTemperature(comm.recv.cryTemp, 'COMM');
+  commInfo.recv.ampTemp = getTemperature(comm.recv.ampTemp, 'COMM');
+  commInfo.recv.signal = calStrength(comm.recv.signal);
+
+  //功率
+  commInfo.send.reflectPower = calPower(comm.send.reflectPower);
+  commInfo.send.forwardPower = calPower(comm.send.forwardPower);
+
+  //温度
+  commInfo.send.cryTemp = getTemperature(comm.send.cryTemp, 'COMM');
+  commInfo.send.ampTemp = getTemperature(comm.send.ampTemp, 'COMM');
+
+  return commInfo;
 };
