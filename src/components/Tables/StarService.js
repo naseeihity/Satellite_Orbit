@@ -46,7 +46,7 @@ function StarService(props) {
     <div>
       {obc ? (
         <Paper className={classes.root}>
-          <Table className={classes.table}>
+          <Table className={`${classes.table} ${tableStyles.table}`}>
             <TableHead>
               <TableRow>
                 <CustomTableCell>卫星号</CustomTableCell>
@@ -58,9 +58,7 @@ function StarService(props) {
             </TableHead>
             <TableBody>
               <TableRow className={classes.row}>
-                <CustomTableCell component="th" scope="row">
-                  {obc.no}
-                </CustomTableCell>
+                <CustomTableCell>{obc.no}</CustomTableCell>
                 <CustomTableCell>{obc.time}</CustomTableCell>
                 <CustomTableCell>{obc.chipTemp}</CustomTableCell>
                 <CustomTableCell>{obc.mode}</CustomTableCell>
@@ -78,9 +76,7 @@ function StarService(props) {
             </TableHead>
             <TableBody>
               <TableRow className={classes.row}>
-                <CustomTableCell component="th" scope="row">
-                  {obc.upCnt}
-                </CustomTableCell>
+                <CustomTableCell>{obc.upCnt}</CustomTableCell>
                 <CustomTableCell>{obc.downCnt}</CustomTableCell>
                 <CustomTableCell>{obc.storeCnt}</CustomTableCell>
                 <CustomTableCell>{obc.lastRst}</CustomTableCell>
@@ -89,16 +85,16 @@ function StarService(props) {
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关状态#1</CustomTableCell>
-                <CustomTableCell>开关状态#2</CustomTableCell>
-                <CustomTableCell>开关状态#3</CustomTableCell>
-                <CustomTableCell>开关状态#4</CustomTableCell>
-                <CustomTableCell>开关状态#5</CustomTableCell>
+                <CustomTableCell>开关#1</CustomTableCell>
+                <CustomTableCell>开关#2</CustomTableCell>
+                <CustomTableCell>开关#3</CustomTableCell>
+                <CustomTableCell>开关#4</CustomTableCell>
+                <CustomTableCell>开关#5</CustomTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow className={classes.row}>
-                <CustomTableCell component="th" scope="row">
+                <CustomTableCell>
                   <span className={tableStyles[obc.switches[0].cls]} value={obc.switches[0].status} />
                 </CustomTableCell>
                 <CustomTableCell>
@@ -117,16 +113,16 @@ function StarService(props) {
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关状态#6</CustomTableCell>
-                <CustomTableCell>开关状态#7</CustomTableCell>
-                <CustomTableCell>开关状态#8</CustomTableCell>
-                <CustomTableCell>开关状态#9</CustomTableCell>
-                <CustomTableCell>开关状态#10</CustomTableCell>
+                <CustomTableCell>开关#6</CustomTableCell>
+                <CustomTableCell>开关#7</CustomTableCell>
+                <CustomTableCell>开关#8</CustomTableCell>
+                <CustomTableCell>开关#9</CustomTableCell>
+                <CustomTableCell>开关#10</CustomTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow className={classes.row}>
-                <CustomTableCell component="th" scope="row">
+                <CustomTableCell>
                   <span className={tableStyles[obc.switches[5].cls]} value={obc.switches[5].status} />
                 </CustomTableCell>
                 <CustomTableCell>
@@ -145,16 +141,16 @@ function StarService(props) {
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关状态#11</CustomTableCell>
-                <CustomTableCell>开关状态#12</CustomTableCell>
-                <CustomTableCell>开关状态#13</CustomTableCell>
-                <CustomTableCell>开关状态#14</CustomTableCell>
-                <CustomTableCell>开关状态#15</CustomTableCell>
+                <CustomTableCell>开关#11</CustomTableCell>
+                <CustomTableCell>开关#12</CustomTableCell>
+                <CustomTableCell>开关#13</CustomTableCell>
+                <CustomTableCell>开关#14</CustomTableCell>
+                <CustomTableCell>开关#15</CustomTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow className={classes.row}>
-                <CustomTableCell component="th" scope="row">
+                <CustomTableCell>
                   <span className={tableStyles[obc.switches[10].cls]} value={obc.switches[10].status} />
                 </CustomTableCell>
                 <CustomTableCell>
