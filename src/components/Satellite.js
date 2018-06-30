@@ -44,21 +44,12 @@ class Satellite extends Component {
 
   getSelectInfo = () => {
     const id = parseInt(this.state.value, 10);
-    // 订阅卫星轨迹
-    postSmart({ sateId: id }).then(data => {
-      console.log('卫星轨迹订阅成功：', data);
-    });
 
     // 查询卫星信息
     postCurInfo({ sateId: id }).then(data => {
       // 发布当前订阅的卫星 id
       console.log('订阅卫星信息成功:', data);
       evt.emit('getSateInfo', { id, data });
-
-      evt.emit('subscirbeSatellite', {
-        id: id,
-        type: CMD.ADD_TELEMETRY
-      });
     });
   };
 
