@@ -40,12 +40,13 @@ class Orbit extends Component {
     this.state = {
       ...this.sates,
       checked: [],
-      spaceStation: true,
-      njust1: false
+      spaceStation: false,
+      njust1: true
     };
   }
 
   componentDidMount() {
+    console.log(this.props.satellites);
     console.log(this.state);
   }
 

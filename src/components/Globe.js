@@ -19,10 +19,9 @@ import baseImg from './asset/elev_bump_4k.jpg';
 import starImg from './asset/star.jpg';
 import nightImg from './asset/night1.jpg';
 import { stationSvg, satellSvg } from './utils/svg.js';
+import { NJUST } from './utils/consts';
 
 const A = 6378137;
-const SPACE_STATION = 3;
-const NJUST = 2;
 
 class Globe extends Component {
   constructor(props) {
@@ -57,10 +56,7 @@ class Globe extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.satellites &&
-      !Object.is(nextProps.satellites, this.props.satellites)
-    ) {
+    if (nextProps.satellites && !Object.is(nextProps.satellites, this.props.satellites)) {
       this.setState({ satellites: nextProps.satellites });
     }
   }
@@ -239,10 +235,8 @@ class Globe extends Component {
   getMsg(msg) {
     const { satellites } = this.state;
     const ws = this.ws;
-    const id =2;
+    const id = 2;
     let series = [].concat(this.getEchartOpt().series);
-    
-    console.log(msg);
 
     if (msg.data.postions) {
       const posArr = msg.data.postions;
@@ -278,7 +272,7 @@ class Globe extends Component {
       ]);
     } else if (12 === msg.type) {
       // 如果获取的数据是卫星信息
-      evt.emit('getSateInfo', { id: id, data: msg.data })
+      evt.emit('getSateInfo', { id: id, data: msg.data });
     }
   }
 
@@ -308,14 +302,7 @@ class Globe extends Component {
   }
 
   render() {
-    return (
-      <ReactEcharts
-        ref={this.echart}
-        option={this.initOption()}
-        style={{ height: '100%' }}
-        showLoading={true}
-      />
-    );
+    return <ReactEcharts ref={this.echart} option={this.initOption()} style={{ height: '100%' }} showLoading={true} />;
   }
 }
 

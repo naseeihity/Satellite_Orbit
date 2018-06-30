@@ -12,7 +12,7 @@ import { CMD } from './utils/api';
 
 import styles from './style/wrapper.css';
 
-const SPACE_STATION = 3;
+import { NJUST } from './utils/consts';
 
 class Wapper extends Component {
   constructor(props) {
@@ -21,16 +21,15 @@ class Wapper extends Component {
       lopen: false,
       ropen: false,
       satellites: [],
-      defaultSate: new Set([SPACE_STATION]),
-      curSateId: '2', // 默认订阅的卫星
+      defaultSate: new Set([NJUST]),
+      curSateId: '2',
       curSateInfo: null
-    };
+    }; // 默认订阅的卫星
   }
 
   componentDidMount() {
     const curSate = new Set(this.state.defaultSate);
     const id = this.state.curSateId;
-    // 监听地面站在线状态改变
     evt.addListener('subscirbeSatellite', item => {
       CMD.ADD === item.type ? curSate.add(item.id) : curSate.delete(item.id);
       this.setState({ defaultSate: curSate });
