@@ -68,13 +68,13 @@ const getTime = time => {
 const getTemperature = (t, type) => {
   // 星务 cpu
   if ('CPU' === type) {
-    return `${t / 100} \u2103`;
+    return `${(t / 100).toFixed(1)}`;
   } else if ('STAR' === type) {
-    return `${t * 0.0625} \u2103`;
+    return `${(t * 0.0625).toFixed(1)}`;
   } else if ('CPU2' === type) {
-    return `${t} \u2103`;
+    return `${t.toFixed(1)}`;
   } else if ('COMM' === type) {
-    return `${(t * -0.07669 + 195.6037).toFixed(1)}  \u2103`;
+    return `${(t * -0.07669 + 195.6037).toFixed(1)}`;
   }
 };
 
@@ -90,39 +90,39 @@ const getSwitchSatus = s => {
 };
 
 const calMagmeter = mArr => {
-  return mArr.map(m => Math.floor(m / 10) + ' nT');
+  return mArr.map(m => Math.floor(m / 10));
 };
 
 const calGyro = gArr => {
-  return gArr.map(g => g / 100 + ' °/s');
+  return gArr.map(g => g / 100);
 };
 
 const calDter = dObj => {
   var newObj = {};
   for (let key of Object.keys(dObj)) {
     if ('pitchAngSpd' === key) {
-      newObj[key] = dObj[key] / 100 + ' deg/s';
+      newObj[key] = dObj[key] / 100;
     } else {
-      newObj[key] = dObj[key] / 100 + ' deg';
+      newObj[key] = dObj[key] / 100;
     }
   }
   return newObj;
 };
 
 const calElectric = c => {
-  return (c * 0.16643964).toFixed(1) + ' mA';
+  return (c * 0.16643964).toFixed(1);
 };
 
 const calVolt = v => {
-  return (v * 4.88).toFixed(1) + ' mV';
+  return (v * 4.88).toFixed(1);
 };
 
 const calPower = p => {
-  return (20 * Math.log10(p * 0.00767)).toFixed(1) + ' dBM';
+  return (20 * Math.log10(p * 0.00767)).toFixed(1);
 };
 
 const calStrength = s => {
-  return (s * 0.03 - 152).toFixed(1) + ' dBM';
+  return (s * 0.03 - 152).toFixed(1);
 };
 
 export const transObc = o => {
@@ -148,8 +148,10 @@ export const transAdcs = a => {
   let adcsInfo = adcs;
   // 温度转换
   adcsInfo.chipTemp = getTemperature(adcs.chipTemp, 'CPU2');
+  // 时间
+  adcsInfo.absTime = getTime(adcs.absTime);
   // 转速
-  adcsInfo.attiMeas.wheelSpd = adcs.attiMeas.wheelSpd + ' Rad/Min';
+  adcsInfo.attiMeas.wheelSpd = adcs.attiMeas.wheelSpd;
   // 开关状态
   adcsInfo.attiMeas.subSwitch = getSwitchSatus(adcs.attiMeas.subSwitch);
   // 磁强计转换

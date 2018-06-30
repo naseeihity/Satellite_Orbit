@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import evt from './utils/event';
 import { postSmart, postCurInfo } from './utils/fetch';
 
+import { CMD } from './utils/api';
+
 import styles from './style/ctlbar.css';
 
 const materialStyles = {
@@ -52,6 +54,11 @@ class Satellite extends Component {
       // 发布当前订阅的卫星 id
       console.log('订阅卫星信息成功:', data);
       evt.emit('getSateInfo', { id, data });
+
+      evt.emit('subscirbeSatellite', {
+        id: id,
+        type: CMD.ADD_TELEMETRY
+      });
     });
   };
 
