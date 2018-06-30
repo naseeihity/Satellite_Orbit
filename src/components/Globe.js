@@ -22,6 +22,7 @@ import { stationSvg, satellSvg } from './utils/svg.js';
 
 const A = 6378137;
 const SPACE_STATION = 3;
+const NJUST = 2;
 
 class Globe extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class Globe extends Component {
     });
 
     this.getStations();
-    this.getSatellite(SPACE_STATION);
+    this.getSatellite(NJUST);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -209,6 +210,7 @@ class Globe extends Component {
 
     ws.connect().then(() => {
       subScribe(id);
+      subScribe(id, CMD.ADD_TELEMETRY);
       ws.getRes(getMsg);
     });
   }
@@ -236,7 +238,11 @@ class Globe extends Component {
 
   getMsg(msg) {
     const { satellites } = this.state;
+    const ws = this.ws;
+    const id =2;
     let series = [].concat(this.getEchartOpt().series);
+    
+    console.log(msg);
 
     if (msg.data.postions) {
       const posArr = msg.data.postions;
@@ -270,6 +276,9 @@ class Globe extends Component {
           globe: { viewControl: { targetCoord: null } }
         }
       ]);
+    } else if (12 === msg.type) {
+      // 如果获取的数据是卫星信息
+      evt.emit('getSateInfo', { id: id, data: msg.data })
     }
   }
 

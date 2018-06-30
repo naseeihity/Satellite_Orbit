@@ -43,8 +43,7 @@ const styles = theme => ({
 function PostureCtl(props) {
   const { classes, postureCtlInfo: info } = props;
   const adcs = info ? transAdcs(info) : null;
-  return (
-    <Paper className={classes.root}>
+  return <Paper className={classes.root}>
       <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
@@ -58,9 +57,13 @@ function PostureCtl(props) {
         <TableBody>
           <TableRow className={classes.row}>
             <CustomTableCell>{adcs.mode}</CustomTableCell>
-            <CustomTableCell>{adcs.absTime} s</CustomTableCell>
-            <CustomTableCell>{adcs.chipTemp}</CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.wheelSpd}</CustomTableCell>
+            <CustomTableCell>{adcs.absTime}</CustomTableCell>
+            <CustomTableCell>
+              {adcs.chipTemp} <span>&#8451;</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.wheelSpd} <span>Rad/Min</span>
+            </CustomTableCell>
             <CustomTableCell>{adcs.rstCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
@@ -121,9 +124,9 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiMeas.magmeter[0]}</CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.magmeter[1]}</CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.magmeter[2]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.magmeter[0]} <span>nT</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.magmeter[1]} <span>nT</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.magmeter[2]} <span>nT</span></CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -135,9 +138,9 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiMeas.gyro[0]}</CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.gyro[1]}</CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.gyro[2]}</CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.gyro[0]} <span>°/s</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.gyro[1]} <span>°/s</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiMeas.gyro[2]} <span>°/s</span></CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -149,9 +152,9 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiDter.dVectorYaw}</CustomTableCell>
-            <CustomTableCell>{adcs.attiDter.dVectorRolling}</CustomTableCell>
-            <CustomTableCell>{adcs.attiDter.dVectorPitch}</CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.dVectorYaw} <span>deg</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.dVectorRolling} <span>deg</span></CustomTableCell>
+            <CustomTableCell>{adcs.attiDter.dVectorPitch} <span>deg</span></CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -166,15 +169,14 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiDter.pitchAng}</CustomTableCell>
-            <CustomTableCell>{adcs.attiDter.pitchAngSpd}</CustomTableCell>
+          <CustomTableCell>{adcs.attiDter.pitchAng} <span>deg</span></CustomTableCell>
+          <CustomTableCell>{adcs.attiDter.pitchAngSpd}  <span>deg/s</span></CustomTableCell>
             <CustomTableCell>{adcs.orbit.mode}</CustomTableCell>
             <CustomTableCell>{adcs.orbit.gpsCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
-    </Paper>
-  );
+    </Paper>;
 }
 
 PostureCtl.propTypes = {

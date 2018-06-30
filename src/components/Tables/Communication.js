@@ -44,9 +44,8 @@ function Communication(props) {
   const { classes, communicationInfo: info } = props;
   const comm = info ? transComm(info) : null;
 
-  return (
-    <Paper className={classes.root}>
-      <div className={tableStyles.title}>通信息系(发送端)</div>
+  return <Paper className={classes.root}>
+      <div className={tableStyles.title}>通信信息(发送端)</div>
       <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
@@ -59,11 +58,21 @@ function Communication(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell>{comm.recv.cur}</CustomTableCell>
-            <CustomTableCell>{comm.recv.motherVol}</CustomTableCell>
-            <CustomTableCell>{comm.recv.cryTemp}</CustomTableCell>
-            <CustomTableCell>{comm.recv.ampTemp}</CustomTableCell>
-            <CustomTableCell>{comm.recv.signal}</CustomTableCell>
+            <CustomTableCell>
+              {comm.recv.cur} <span>mA</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.recv.motherVol} <span>mV</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.recv.cryTemp} <span>&#8451;</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.recv.ampTemp} <span>&#8451;</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.recv.signal} <span>dBM</span>
+            </CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -80,16 +89,23 @@ function Communication(props) {
         </TableHead>
         <TableBody>
           <TableRow className={classes.row}>
-            <CustomTableCell>{comm.send.reflectPower}</CustomTableCell>
-            <CustomTableCell>{comm.send.forwardPower}</CustomTableCell>
-            <CustomTableCell>{comm.send.cryTemp}</CustomTableCell>
-            <CustomTableCell>{comm.send.ampTemp}</CustomTableCell>
+            <CustomTableCell>
+              {comm.send.reflectPower} <span>dBM</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.send.forwardPower} <span>dBM</span>
+            </CustomTableCell>
+            <CustomTableCell>
+            {comm.send.cryTemp} <span>&#8451;</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {comm.send.ampTemp} <span>&#8451;</span>
+            </CustomTableCell>
             <CustomTableCell>{comm.send.status}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
-    </Paper>
-  );
+    </Paper>;
 }
 
 Communication.propTypes = {

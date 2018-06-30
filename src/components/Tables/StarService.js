@@ -42,10 +42,8 @@ const styles = theme => ({
 function StarService(props) {
   const { classes, starServiceInfo: info } = props;
   const obc = info ? transObc(info) : null;
-  return (
-    <div>
-      {obc ? (
-        <Paper className={classes.root}>
+  return <div>
+      {obc ? <Paper className={classes.root}>
           <Table className={`${classes.table} ${tableStyles.table}`}>
             <TableHead>
               <TableRow>
@@ -59,8 +57,10 @@ function StarService(props) {
             <TableBody>
               <TableRow className={classes.row}>
                 <CustomTableCell>{obc.no}</CustomTableCell>
-                <CustomTableCell>{obc.time}</CustomTableCell>
-                <CustomTableCell>{obc.chipTemp}</CustomTableCell>
+                <CustomTableCell>
+                  {obc.time}
+                </CustomTableCell>
+            <CustomTableCell>{obc.chipTemp} <span>&#8451;</span></CustomTableCell>
                 <CustomTableCell>{obc.mode}</CustomTableCell>
                 <CustomTableCell>{obc.rstCnt}</CustomTableCell>
               </TableRow>
@@ -80,7 +80,7 @@ function StarService(props) {
                 <CustomTableCell>{obc.downCnt}</CustomTableCell>
                 <CustomTableCell>{obc.storeCnt}</CustomTableCell>
                 <CustomTableCell>{obc.lastRst}</CustomTableCell>
-                <CustomTableCell>{obc.obcTemp}</CustomTableCell>
+            <CustomTableCell>{obc.obcTemp} <span>&#8451;</span></CustomTableCell>
               </TableRow>
             </TableBody>
             <TableHead>
@@ -168,12 +168,8 @@ function StarService(props) {
               </TableRow>
             </TableBody>
           </Table>
-        </Paper>
-      ) : (
-        '获取星务信息失败'
-      )}
-    </div>
-  );
+        </Paper> : '获取星务信息失败'}
+    </div>;
 }
 
 StarService.propTypes = {
