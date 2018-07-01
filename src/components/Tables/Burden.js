@@ -15,14 +15,19 @@ class Burder extends Component {
     this.state = {
       imgId: '',
       radioId: '',
-      videoId: ''
+      videoId: '',
+      images: []
     };
   }
 
   componentDidMount() {
     const sateId = this.props.curSateId;
     // 获取到图片列表重新渲染列表，并缓存
-    postImg({ sateId }).then(msg => console.log(msg));
+    postImg({ sateId }).then(msg => {
+      if (msg && msg.returnMsg && 'success' === msg.returnMsg) {
+        this.setState({ images: msg.images });
+      }
+    });
   }
 
   handleChange = event => {
@@ -41,6 +46,10 @@ class Burder extends Component {
   };
 
   render() {
+    const { images } = this.state;
+    const ImgList = images.map((item, index) => {
+      return <MenuItem value={item.id}>{item.name}</MenuItem>;
+    });
     return (
       <div className={styles.bur_container}>
         <div className={styles.ctl_column}>
@@ -49,17 +58,12 @@ class Burder extends Component {
             <Select
               value={this.state.imgId}
               onChange={this.handleImgChange}
-              inputProps={{
-                name: 'imgId',
-                id: 'img-list'
-              }}
+              inputProps={{ name: 'imgId', id: 'img-list' }}
             >
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>图片1</MenuItem>
-              <MenuItem value={20}>图片2</MenuItem>
-              <MenuItem value={30}>图片3</MenuItem>
+              {ImgList}
             </Select>
           </FormControl>
           <Button variant="raised" color="primary" className={styles.bur_btn}>
@@ -72,10 +76,7 @@ class Burder extends Component {
             <Select
               value={this.state.radioId}
               onChange={this.handleRadioChange}
-              inputProps={{
-                name: 'radioId',
-                id: 'radio-list'
-              }}
+              inputProps={{ name: 'radioId', id: 'radio-list' }}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -95,10 +96,7 @@ class Burder extends Component {
             <Select
               value={this.state.videoId}
               onChange={this.handleVideoChange}
-              inputProps={{
-                name: 'videoId',
-                id: 'video-list'
-              }}
+              inputProps={{ name: 'videoId', id: 'video-list' }}
             >
               <MenuItem value="">
                 <em>None</em>
