@@ -12,6 +12,8 @@ export const smart = 'http://' + IP + '/station/rest/housekeep/smart';
 export const curInfo = 'http://' + IP + '/station/rest/housekeep/current';
 // 查询地面站状态
 export const stationStatus = 'http://' + IP + '/station/rest/platform/status';
+// 控制按钮
+export const commond = 'http://' + IP + '/station/rest/satellite/commond';
 // websocket 订阅
 export const WS_SATELLITE = 'ws://' + IP + '/station/rest/websocket/satellite/status.do';
 

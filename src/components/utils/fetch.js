@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { station, satellite, stationStatus, statistic, smart, curInfo } from './api';
+import { station, satellite, stationStatus, statistic, smart, curInfo, commond } from './api';
 
 const page = { page: { no: '1', size: '20' } };
 
@@ -16,3 +16,5 @@ export const getStatistic = () => axios.get(statistic).then(res => res.data);
 export const postSmart = data => axios.post(smart, JSON.stringify(data)).then(res => res.data);
 
 export const postCurInfo = data => axios.post(curInfo, JSON.stringify(data)).then(res => res.data);
+
+export const postComd = data => axios.post(commond, JSON.stringify(data)).then(res => res.data);
