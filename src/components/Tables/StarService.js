@@ -42,8 +42,10 @@ const styles = theme => ({
 function StarService(props) {
   const { classes, starServiceInfo: info } = props;
   const obc = info ? transObc(info) : null;
-  return <div>
-      {obc ? <Paper className={classes.root}>
+  return (
+    <div>
+      {obc ? (
+        <Paper className={classes.root}>
           <Table className={`${classes.table} ${tableStyles.table}`}>
             <TableHead>
               <TableRow>
@@ -57,10 +59,10 @@ function StarService(props) {
             <TableBody>
               <TableRow className={classes.row}>
                 <CustomTableCell>{obc.no}</CustomTableCell>
+                <CustomTableCell>{obc.time}</CustomTableCell>
                 <CustomTableCell>
-                  {obc.time}
+                  {obc.chipTemp} <span>&#8451;</span>
                 </CustomTableCell>
-            <CustomTableCell>{obc.chipTemp} <span>&#8451;</span></CustomTableCell>
                 <CustomTableCell>{obc.mode}</CustomTableCell>
                 <CustomTableCell>{obc.rstCnt}</CustomTableCell>
               </TableRow>
@@ -80,15 +82,17 @@ function StarService(props) {
                 <CustomTableCell>{obc.downCnt}</CustomTableCell>
                 <CustomTableCell>{obc.storeCnt}</CustomTableCell>
                 <CustomTableCell>{obc.lastRst}</CustomTableCell>
-            <CustomTableCell>{obc.obcTemp} <span>&#8451;</span></CustomTableCell>
+                <CustomTableCell>
+                  {obc.obcTemp} <span>&#8451;</span>
+                </CustomTableCell>
               </TableRow>
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关#1</CustomTableCell>
-                <CustomTableCell>开关#2</CustomTableCell>
-                <CustomTableCell>开关#3</CustomTableCell>
-                <CustomTableCell>开关#4</CustomTableCell>
+                <CustomTableCell>天线1</CustomTableCell>
+                <CustomTableCell>天线2</CustomTableCell>
+                <CustomTableCell>天线3</CustomTableCell>
+                <CustomTableCell>天线4</CustomTableCell>
                 <CustomTableCell>开关#5</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -113,11 +117,11 @@ function StarService(props) {
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关#6</CustomTableCell>
-                <CustomTableCell>开关#7</CustomTableCell>
-                <CustomTableCell>开关#8</CustomTableCell>
-                <CustomTableCell>开关#9</CustomTableCell>
-                <CustomTableCell>开关#10</CustomTableCell>
+                <CustomTableCell>帆板展开1</CustomTableCell>
+                <CustomTableCell>帆板展开2</CustomTableCell>
+                <CustomTableCell>电池加热</CustomTableCell>
+                <CustomTableCell>姿控系统</CustomTableCell>
+                <CustomTableCell>天线系统</CustomTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -141,10 +145,10 @@ function StarService(props) {
             </TableBody>
             <TableHead>
               <TableRow>
-                <CustomTableCell>开关#11</CustomTableCell>
-                <CustomTableCell>开关#12</CustomTableCell>
-                <CustomTableCell>开关#13</CustomTableCell>
-                <CustomTableCell>开关#14</CustomTableCell>
+                <CustomTableCell>数传5V</CustomTableCell>
+                <CustomTableCell>数传12V</CustomTableCell>
+                <CustomTableCell>相机5W</CustomTableCell>
+                <CustomTableCell>相机10W</CustomTableCell>
                 <CustomTableCell>开关#15</CustomTableCell>
               </TableRow>
             </TableHead>
@@ -168,8 +172,12 @@ function StarService(props) {
               </TableRow>
             </TableBody>
           </Table>
-        </Paper> : '获取星务信息失败'}
-    </div>;
+        </Paper>
+      ) : (
+        '获取星务信息失败'
+      )}
+    </div>
+  );
 }
 
 StarService.propTypes = {

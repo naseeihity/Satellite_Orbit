@@ -27,7 +27,6 @@ class Control extends Component {
       let snackMsg = '';
       let openSnackbar = false;
       let status = 0;
-      console.log(msg);
       if (msg && msg.returnMsg && 'success' === msg.returnMsg) {
         openSnackbar = true;
         status = 1;
