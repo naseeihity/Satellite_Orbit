@@ -14,6 +14,8 @@ export const curInfo = 'http://' + IP + '/station/rest/housekeep/current';
 export const stationStatus = 'http://' + IP + '/station/rest/platform/status';
 // 控制按钮
 export const commond = 'http://' + IP + '/station/rest/satellite/commond';
+// 下载图片
+export const getImg = 'http://' + IP + '/station/rest/media/images';
 // websocket 订阅
 export const WS_SATELLITE = 'ws://' + IP + '/station/rest/websocket/satellite/status.do';
 

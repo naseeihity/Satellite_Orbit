@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 
+import { postImg } from '../utils/fetch';
+
 import styles from '../style/table.css';
 
 class Burder extends Component {
@@ -15,6 +17,12 @@ class Burder extends Component {
       radioId: '',
       videoId: ''
     };
+  }
+
+  componentDidMount() {
+    const sateId = this.props.curSateId;
+    // 获取到图片列表重新渲染列表，并缓存
+    postImg({ sateId }).then(msg => console.log(msg));
   }
 
   handleChange = event => {

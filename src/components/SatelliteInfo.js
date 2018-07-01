@@ -107,7 +107,7 @@ class SatelliteInfo extends Component {
                     <Control curSateId={curSateId} />
                   </TabContainer>
                   <TabContainer dir={'left'} className={styles.tab_container}>
-                    <Burden />
+                    <Burden curSateId={curSateId} />
                   </TabContainer>
                 </SwipeableViews>
               </div>

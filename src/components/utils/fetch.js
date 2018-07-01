@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { station, satellite, stationStatus, statistic, smart, curInfo, commond } from './api';
+import { station, satellite, stationStatus, statistic, smart, curInfo, commond, getImg } from './api';
 
 const page = { page: { no: '1', size: '20' } };
 
@@ -18,3 +18,5 @@ export const postSmart = data => axios.post(smart, JSON.stringify(data)).then(re
 export const postCurInfo = data => axios.post(curInfo, JSON.stringify(data)).then(res => res.data);
 
 export const postComd = data => axios.post(commond, JSON.stringify(data)).then(res => res.data);
+
+export const postImg = data => axios.post(getImg, JSON.stringify(Object.assign({}, page, data))).then(res => res.data);
