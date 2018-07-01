@@ -83,7 +83,10 @@ const getMode = mode => {
 };
 
 const getSwitchSatus = s => {
-  let switchArr = s.toString(2).split('');
+  let switchArr = s
+    .toString(2)
+    .split('')
+    .reverse();
   return switchArr.map(item => {
     return { status: item, cls: item === '1' ? 'on' : 'off' };
   });

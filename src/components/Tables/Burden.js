@@ -4,7 +4,9 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
+import Snackbar from '@material-ui/core/Snackbar';
 
+import ImgDialog from './ImgDialog';
 import { postImg } from '../utils/fetch';
 
 import styles from '../style/table.css';
@@ -16,7 +18,10 @@ class Burder extends Component {
       imgId: '',
       radioId: '',
       videoId: '',
-      images: []
+      images: [],
+      imgOpen: false,
+      openSnackbar: false,
+      snackMsg: ''
     };
   }
 
@@ -39,16 +44,44 @@ class Burder extends Component {
   };
 
   handleRadioChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    // this.setState({ [event.target.name]: event.target.value });
   };
   handleVideoChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    // this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleClose = () => {
+    this.setState({ openSnackbar: false, snackMsg: '' });
+  };
+
+  openImgDialog = event => {
+    if (this.state.imgId !== '') {
+      this.setState({ imgOpen: true });
+    } else {
+      // 请先选择要下载的图片
+    }
+  };
+
+  radioConnect = event => {
+    this.setState({ openSnackbar: true, snackMsg: '发送成功' });
+  };
+
+  spaceVR = event => {
+    this.setState({ openSnackbar: true, snackMsg: '敬请期待' });
+  };
+
+  dialogCloseCbk = open => {
+    this.setState({ imgOpen: open });
   };
 
   render() {
-    const { images } = this.state;
+    const { images, imgOpen, imgId, snackMsg, openSnackbar } = this.state;
     const ImgList = images.map((item, index) => {
-      return <MenuItem value={item.id}>{item.name}</MenuItem>;
+      return (
+        <MenuItem key={item.id} value={item.id}>
+          {item.name}
+        </MenuItem>
+      );
     });
     return (
       <div className={styles.bur_container}>
@@ -66,7 +99,7 @@ class Burder extends Component {
               {ImgList}
             </Select>
           </FormControl>
-          <Button variant="raised" color="primary" className={styles.bur_btn}>
+          <Button variant="raised" color="primary" className={styles.bur_btn} onClick={this.openImgDialog}>
             下传图片
           </Button>
         </div>
@@ -86,8 +119,8 @@ class Burder extends Component {
               <MenuItem value={30}>语音3</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="raised" color="primary" className={styles.bur_btn}>
-            语音转发
+          <Button variant="raised" color="primary" className={styles.bur_btn} onClick={this.radioConnect}>
+            语音通联
           </Button>
         </div>
         <div className={styles.ctl_column}>
@@ -106,10 +139,19 @@ class Burder extends Component {
               <MenuItem value={30}>视频3</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="raised" color="primary" className={styles.bur_btn}>
+          <Button variant="raised" color="primary" className={styles.bur_btn} onClick={this.spaceVR}>
             太空 VR
           </Button>
         </div>
+        <ImgDialog open={imgOpen} img={images} id={imgId} dialogClose={this.dialogCloseCbk} />
+        <Snackbar
+          className={styles.snackBar}
+          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={openSnackbar}
+          onClose={this.handleClose}
+          ContentProps={{ 'aria-describedby': 'ctl-message-id' }}
+          message={<span id="ctl-message-id">{snackMsg}</span>}
+        />
       </div>
     );
   }

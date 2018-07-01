@@ -43,7 +43,8 @@ const styles = theme => ({
 function PostureCtl(props) {
   const { classes, postureCtlInfo: info } = props;
   const adcs = info ? transAdcs(info) : null;
-  return <Paper className={classes.root}>
+  return (
+    <Paper className={classes.root}>
       <Table className={`${classes.table} ${tableStyles.table}`}>
         <TableHead>
           <TableRow>
@@ -87,11 +88,11 @@ function PostureCtl(props) {
         </TableBody>
         <TableHead>
           <TableRow>
-            <CustomTableCell>开关#1</CustomTableCell>
-            <CustomTableCell>开关#2</CustomTableCell>
-            <CustomTableCell>开关#3</CustomTableCell>
-            <CustomTableCell>开关#4</CustomTableCell>
-            <CustomTableCell>开关#5</CustomTableCell>
+            <CustomTableCell>动量轮A</CustomTableCell>
+            <CustomTableCell>动量轮B</CustomTableCell>
+            <CustomTableCell>GPS</CustomTableCell>
+            <CustomTableCell>磁强计A</CustomTableCell>
+            <CustomTableCell>磁强计B</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -100,16 +101,19 @@ function PostureCtl(props) {
               <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
             </CustomTableCell>
             <CustomTableCell>
-              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+              <span className={tableStyles[adcs.attiMeas.subSwitch[1].cls]} value={adcs.attiMeas.subSwitch[1].status} />
             </CustomTableCell>
             <CustomTableCell>
-              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+              <span
+                className={tableStyles[adcs.attiMeas.subSwitch[11].cls]}
+                value={adcs.attiMeas.subSwitch[11].status}
+              />
             </CustomTableCell>
             <CustomTableCell>
-              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+              <span className={tableStyles[adcs.attiMeas.subSwitch[8].cls]} value={adcs.attiMeas.subSwitch[8].status} />
             </CustomTableCell>
             <CustomTableCell>
-              <span className={tableStyles[adcs.attiMeas.subSwitch[0].cls]} value={adcs.attiMeas.subSwitch[0].status} />
+              <span className={tableStyles[adcs.attiMeas.subSwitch[9].cls]} value={adcs.attiMeas.subSwitch[9].status} />
             </CustomTableCell>
           </TableRow>
         </TableBody>
@@ -124,9 +128,15 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiMeas.magmeter[0]} <span>nT</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.magmeter[1]} <span>nT</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.magmeter[2]} <span>nT</span></CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.magmeter[0]} <span>nT</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.magmeter[1]} <span>nT</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.magmeter[2]} <span>nT</span>
+            </CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -138,9 +148,15 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiMeas.gyro[0]} <span>°/s</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.gyro[1]} <span>°/s</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiMeas.gyro[2]} <span>°/s</span></CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.gyro[0]} <span>°/s</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.gyro[1]} <span>°/s</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiMeas.gyro[2]} <span>°/s</span>
+            </CustomTableCell>
           </TableRow>
         </TableBody>
         <TableHead>
@@ -152,9 +168,15 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-            <CustomTableCell>{adcs.attiDter.dVectorYaw} <span>deg</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiDter.dVectorRolling} <span>deg</span></CustomTableCell>
-            <CustomTableCell>{adcs.attiDter.dVectorPitch} <span>deg</span></CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiDter.dVectorYaw} <span>deg</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiDter.dVectorRolling} <span>deg</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiDter.dVectorPitch} <span>deg</span>
+            </CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -169,14 +191,19 @@ function PostureCtl(props) {
         </TableHead>
         <TableBody>
           <TableRow className={`${classes.row}`}>
-          <CustomTableCell>{adcs.attiDter.pitchAng} <span>deg</span></CustomTableCell>
-          <CustomTableCell>{adcs.attiDter.pitchAngSpd}  <span>deg/s</span></CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiDter.pitchAng} <span>deg</span>
+            </CustomTableCell>
+            <CustomTableCell>
+              {adcs.attiDter.pitchAngSpd} <span>deg/s</span>
+            </CustomTableCell>
             <CustomTableCell>{adcs.orbit.mode}</CustomTableCell>
             <CustomTableCell>{adcs.orbit.gpsCnt}</CustomTableCell>
           </TableRow>
         </TableBody>
       </Table>
-    </Paper>;
+    </Paper>
+  );
 }
 
 PostureCtl.propTypes = {
