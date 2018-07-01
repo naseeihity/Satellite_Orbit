@@ -12,6 +12,8 @@ import StarService from './Tables/StarService';
 import PostureCtl from './Tables/PostureCtl';
 import Communication from './Tables/Communication';
 import PowerSupply from './Tables/PowerSupply';
+import Burden from './Tables/Burden';
+import Control from './Tables/Control';
 
 import styles from './style/satelliteInfo.css';
 
@@ -61,6 +63,7 @@ class SatelliteInfo extends Component {
     const { pageId, openSnackbar } = this.state;
     const { curSate, curSateInfo } = this.props;
     const curSateName = curSate.name ? curSate.name.toUpperCase() : '未知';
+    const curSateId = curSate.id;
     const starServiceInfo = (curSateInfo && curSateInfo.obc) || null;
     const postureCtlInfo = (curSateInfo && curSateInfo.adcs) || null;
     const communicationInfo = (curSateInfo && curSateInfo.obc && curSateInfo.obc.comm) || null;
@@ -73,11 +76,12 @@ class SatelliteInfo extends Component {
             <div>
               <div className={styles.tabbox}>
                 <AppBar position="static" className={styles.appbar}>
-                  <Tabs value={pageId} onChange={this.handleChange} textColor="primary" scrollable scrollButtons="off">
+                  <Tabs value={pageId} onChange={this.handleChange} textColor="primary" scrollable scrollButtons="on">
                     <Tab label="星务" className={styles.tab} />
                     <Tab label="姿控" className={styles.tab} />
                     <Tab label="通信" className={styles.tab} />
                     <Tab label="电源" className={styles.tab} />
+                    <Tab label="控制" className={styles.tab} />
                     <Tab label="载荷" className={styles.tab} />
                   </Tabs>
                 </AppBar>
@@ -99,7 +103,12 @@ class SatelliteInfo extends Component {
                   <TabContainer dir={'left'} className={styles.tab_container}>
                     <PowerSupply powerInfo={powerInfo} />
                   </TabContainer>
-                  <TabContainer dir={'left'} className={styles.tab_container} />
+                  <TabContainer dir={'left'} className={styles.tab_container}>
+                    <Control curSateId={curSateId} />
+                  </TabContainer>
+                  <TabContainer dir={'left'} className={styles.tab_container}>
+                    <Burden curSateId={curSateId} />
+                  </TabContainer>
                 </SwipeableViews>
               </div>
             </div>

@@ -28,7 +28,50 @@
   font-family: 'digita', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-.table td span{
+.table td span {
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   color: rgba(0, 0, 0, 0.87);
+}
+
+.ctl_btnlist {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  transform: translate(0, 0);
+}
+.ctl_column {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.ctl_btn {
+  width: 45%;
+  margin: 20px 0;
+}
+
+.snackBar {
+  width: 160px;
+  height: 50px;
+  left: calc(50% - 80px);
+}
+
+.snackBar.success > div {
+  background: #37c6c0;
+}
+.snackBar.fail > div {
+  background: #f28c48;
+}
+
+.bur_container {
+  background: #ffebcd;
+  padding: 15px;
+}
+
+.bur_select {
+  width: 45%;
+}
+
+.bur_btn {
+  width: 45%;
+  margin: 20px;
 }
