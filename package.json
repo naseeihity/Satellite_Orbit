@@ -110,5 +110,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "homepage": "http://39.106.63.148/station/app"
 }
