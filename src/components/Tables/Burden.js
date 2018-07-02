@@ -44,10 +44,10 @@ class Burder extends Component {
   };
 
   handleRadioChange = event => {
-    // this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
   handleVideoChange = event => {
-    // this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   handleClose = () => {
@@ -63,9 +63,11 @@ class Burder extends Component {
   };
 
   radioConnect = event => {
-    setTimeout(() => {
-      this.setState({ openSnackbar: true, snackMsg: '发送成功' });
-    }, 2000);
+    if (this.state.radioId) {
+      setTimeout(() => {
+        this.setState({ openSnackbar: true, snackMsg: '发送成功' });
+      }, 2000);
+    }
   };
 
   spaceVR = event => {
