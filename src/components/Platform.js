@@ -11,10 +11,14 @@ class Platform extends Component {
     this.echart = React.createRef();
 
     this.state = { total: 0, todayNum: 0, date: [], count: [], days: 0 };
+
+    this.timer = null;
   }
 
   componentDidMount() {
     this.getInfo();
+
+    this.timer = setInterval(this.getInfo, 3000);
   }
 
   getInfo = () => {
@@ -35,6 +39,10 @@ class Platform extends Component {
       this.setState({ total, todayNum, date, count, days });
     });
   };
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
 
   initOption = () => {
     const { date, count, days } = this.state;

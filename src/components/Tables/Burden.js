@@ -63,7 +63,9 @@ class Burder extends Component {
   };
 
   radioConnect = event => {
-    this.setState({ openSnackbar: true, snackMsg: '发送成功' });
+    setTimeout(() => {
+      this.setState({ openSnackbar: true, snackMsg: '发送成功' });
+    }, 2000);
   };
 
   spaceVR = event => {

@@ -23,22 +23,24 @@ class Control extends Component {
   pubulishComd = (type, data) => {
     const sateId = this.props.curSateId;
 
-    postComd({ sateId, type, data }).then(msg => {
-      let snackMsg = '';
-      let openSnackbar = false;
-      let status = 0;
-      if (msg && msg.returnMsg && 'success' === msg.returnMsg) {
-        openSnackbar = true;
-        status = 1;
-        snackMsg = TYPE[type] + TYPE[data] + '成功';
-      } else {
-        openSnackbar = false;
-        status = 0;
-        snackMsg = TYPE[type] + TYPE[data] + '失败';
-      }
+    setTimeout(() => {
+      postComd({ sateId, type, data }).then(msg => {
+        let snackMsg = '';
+        let openSnackbar = false;
+        let status = 0;
+        if (msg && msg.returnMsg && 'success' === msg.returnMsg) {
+          openSnackbar = true;
+          status = 1;
+          snackMsg = TYPE[type] + TYPE[data] + '成功';
+        } else {
+          openSnackbar = false;
+          status = 0;
+          snackMsg = TYPE[type] + TYPE[data] + '失败';
+        }
 
-      this.setState({ openSnackbar, snackMsg, status });
-    });
+        this.setState({ openSnackbar, snackMsg, status });
+      });
+    }, 2000);
   };
 
   handleClose = () => {
