@@ -2,6 +2,7 @@ import isNumber from 'lodash.isnumber';
 import dayjs from 'dayjs';
 import clonedeep from 'lodash.clonedeep';
 
+import { secondCovert } from './utils';
 const a = 6378137;
 const b = 6356752.3142;
 const e2 = (a * a - b * b) / (a * a);
@@ -62,6 +63,11 @@ export default xyz2blh;
 const MODE = ['基本模式', '低电压模式'];
 const getTime = time => {
   return dayjs(time).isValid() ? dayjs(time * 1000).format('YYYY-MM-DD HH:mm:ss') : '未知';
+};
+
+const transTime = time => {
+  var covertT = secondCovert(time);
+  return covertT.days + '天' + covertT.hours + '时' + covertT.minutes + '分' + covertT.seconds + '秒';
 };
 
 // 温度转化
@@ -153,7 +159,7 @@ export const transAdcs = a => {
   // 温度转换
   adcsInfo.chipTemp = getTemperature(adcs.chipTemp, 'CPU2');
   // 时间
-  adcsInfo.absTime = getTime(adcs.absTime);
+  adcsInfo.absTime = transTime(adcs.absTime);
   // 转速
   adcsInfo.attiMeas.wheelSpd = adcs.attiMeas.wheelSpd;
   // 开关状态
