@@ -70,7 +70,8 @@ const getTemperature = (t, type) => {
   if ('CPU' === type) {
     return `${(t / 100).toFixed(1)}`;
   } else if ('STAR' === type) {
-    return `${(t * 0.0625).toFixed(1)}`;
+    t = t > 32678 ? 32678 - t : t;
+    return `${((t * 0.0625) / 16).toFixed(1)}`;
   } else if ('CPU2' === type) {
     return `${t.toFixed(1)}`;
   } else if ('COMM' === type) {
