@@ -1,4 +1,4 @@
-const IP = '39.106.63.148';
+const IP = '47.106.130.222';
 
 // 查询地面站信息
 export const station = 'http://' + IP + '/station/rest/station/query';
